@@ -35,9 +35,15 @@ class WilayasController extends Controller
 
       try
       {
-        // $wilayas = Wilaya::create($request->all());
+        $wilayas = Wilaya::create($request->all());
 
-        $wilayas = new Wilaya();
+        return response()->json([
+          'status' => 1,
+          'message' => 'success',
+          'data' => new WilayaResource($wilayas)
+        ]);
+
+      /*   $wilayas = new Wilaya();
 
         // start seach name location
         $locationName = $request->input('name');
@@ -79,7 +85,7 @@ class WilayasController extends Controller
           'message' => 'success',
           'data' => new WilayaResource($wilayas)
         ]);
-      }
+      } */
 
       }
       catch(Exception $e)
