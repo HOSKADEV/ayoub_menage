@@ -1,0 +1,97 @@
+/* Start css swiper image in products/list.blade.php */
+
+.swiper-body {
+  position: relative;
+  height: 100%;
+}
+.swiper-body{
+  background: #eee;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+}
+/* .swiper-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+video {
+  width: 100%;
+  height: 100%;
+}
+iframe {
+  width: 100%;
+  height: 100%;
+}
+/* end css swiper image in products/list.blade.php */
+
+/* Start css loading */
+#loading-page{
+  /* max-width: 1000%; */
+}
+#loading-spinner{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+.spinner {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner::before,
+.spinner::after {
+  border: 8.6px solid #696cff;
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  display: block;
+}
+
+.spinner::before {
+  width: 43.2px;
+  height: 43.2px;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  animation: spinner-1o3y8q 0.75s infinite linear reverse;
+}
+
+.spinner::after {
+  animation: spinner-1o3y8q 0.5s infinite linear;
+  height: 72px;
+  width: 72px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+
+@keyframes spinner-1o3y8q {
+  to {
+     transform: rotate(360deg);
+  }
+}
