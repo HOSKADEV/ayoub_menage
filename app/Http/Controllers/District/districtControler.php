@@ -36,7 +36,8 @@ class districtControler extends Controller
       }
       try
       {
-        $district = new District();
+        $district = District::create($request->all());
+        /* $district = new District();
 
         $locationName = $request->input('name');
 
@@ -70,7 +71,7 @@ class districtControler extends Controller
           $district->longitude = $lng;
           $district->latitude = $lat;
           $district->save();
-        }
+        } */
         return response()->json([
           'status' => 1,
           'message' => 'success',
