@@ -284,7 +284,13 @@ class DatatablesController extends Controller
 
       })
 
-      ->addColumn('price', function ($row) {
+      ->addColumn('purchasing_price', function ($row) {
+
+        return number_format($row->purchasing_price, 2, '.', ',') . ' Dzd';
+
+      })
+
+      ->addColumn('selling_price', function ($row) {
 
         return number_format($row->unit_price, 2, '.', ',') . ' Dzd';
 

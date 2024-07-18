@@ -72,11 +72,11 @@
 "Sections" : "العناصر",
 "Homepage sections" : "عناصر الواجهة الأمامية",
 "Sections table" : "جدول العناصر",
-"User" : "المستخدم",
-"Users" : "المستخدمون",
-"Browse users" : "تصفح المستخدمين",
-"Users table" : "جدول المستخدمين",
-"Add user" : "إضافة مستخدم",
+"User" : "السائق",
+"Users" : "السائقون",
+"Browse users" : "تصفح السائقين",
+"Users table" : "جدول السائقين",
+"Add user" : "إضافة سائق",
 
 "Notice" : "إعلام",
 "Notices" : "الإعلامات",
@@ -277,6 +277,7 @@
 "Do you sure delete this image?" :"هل أنت متأكد من حذف هذه الصورة؟",
 "Do you sure delete this video?" :"هل أنت متأكد من حذف هذه فيديو؟",
 "Selling price": "سعر البيع",
+"Purchasing price" : "سعر الشراء",
 "Code Supplier": "كود المورد",
 "Code Bar":"كود بار",
 
@@ -316,10 +317,10 @@
 "Order status update":"تحديث حالة الطلب",
 
 "District" : "البلدية",
-"Client" : "العميل",
-"Clients" : "العملاء",
-"Browse clients" : "تصفح العملاء",
-"Clients table" : "جدول العملاء",
-"Add client" : "إضافة عميل"
+"Client" : "المحل",
+"Clients" : "المحلات",
+"Browse clients" : "تصفح المحلات",
+"Clients table" : "جدول المحلات",
+"Add client" : "إضافة محل"
 
 }

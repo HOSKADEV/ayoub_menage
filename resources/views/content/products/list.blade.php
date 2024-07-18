@@ -51,7 +51,8 @@
           <tr>
             <th>#</th>
             <th>{{__('Name')}}</th>
-            <th>{{__('Price')}}</th>
+            <th>{{__('Purchasing price')}}</th>
+            <th>{{__('Selling price')}}</th>
             <th>{{__('Quantity')}}</th>
             <th>{{__('Created at')}}</th>
 {{--             <th>{{__('in_discount')}}</th>
@@ -600,8 +601,13 @@
                 },
 
                 {
-                    data: 'price',
-                    name: 'price'
+                    data: 'purchasing_price',
+                    name: 'purchasing_price'
+                },
+
+                {
+                    data: 'selling_price',
+                    name: 'selling_price'
                 },
 
                 {

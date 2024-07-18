@@ -1,5 +1,15 @@
 {
-  "privacy_policy" : "Privacy policy",
-  "about" : "About",
-  "success" : "Opeation completed successfully"
+  "privacy_policy": "Privacy policy",
+  "about": "About",
+  "success": "Opeation completed successfully",
+  "User": "Driver",
+  "Users": "Drivers",
+  "Browse users": "Browse Drivers",
+  "Users table": "Drivers table",
+  "Add user": "Add driver",
+  "Client": "Store",
+  "Clients": "Stores",
+  "Browse clients": "Browse stores",
+  "Clients table": "Stores table",
+  "Add client": "Add store"
 }
