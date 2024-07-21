@@ -118,6 +118,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('/v1/order/cancel','App\Http\Controllers\OrderController@cancel');
   Route::post('/v1/order/get','App\Http\Controllers\OrderController@get');
 
+
+  Route::post('/v1/client/create','App\Http\Controllers\ClientController@create');
+  Route::post('/v1/client/update','App\Http\Controllers\ClientController@update');
+  Route::post('/v1/client/delete','App\Http\Controllers\ClientController@delete');
+  Route::post('/v1/client/restore','App\Http\Controllers\ClientController@restore');
+  Route::post('/v1/client/get','App\Http\Controllers\ClientController@get');
+
   Route::post('/v1/invoice/update','App\Http\Controllers\InvoiceController@update');
 
 
