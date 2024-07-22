@@ -31,6 +31,7 @@ class OrderResource extends JsonResource
         'status'      => $this->status,
         'created_at'  => date_format($this->created_at,'Y-m-d H:i:s'),
         'updated_at'  => date_format($this->updated_at,'Y-m-d H:i:s'),
+        'client' => new ClientResource($this->client),
         'wilayas' => new WilayaResource($this->wilayas),
         'district' => new DistrictResource($this->district),
         'invoice' => is_null($this->invoice) ? null :new InvoiceResource($this->invoice),

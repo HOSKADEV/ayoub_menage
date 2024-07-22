@@ -20,7 +20,9 @@ class ClientResource extends JsonResource
           'phone' => $this->phone,
           'district_id' => $this->district_id,
           'wilaya_id' => $this->district->wilaya_id,
-          'image' => empty($this->image) ? null : url($this->image)
+          'image' => empty($this->image) ? null : url($this->image),
+          'longitude' => $this->longitude,
+          'latitude'  => $this->latitude,
         ];
     }
 }
