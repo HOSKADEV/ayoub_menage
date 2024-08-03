@@ -11,8 +11,8 @@
   <span class="text-muted fw-light">{{__('Orders')}} /</span> {{__('Browse orders')}}
   <small>
   <div class="form-check form-switch mb-2" style="display: inline; float:right">
-    <input class="form-check-input" type="checkbox" id="shipping_switch" @if($shipping->status == 1 ) checked @endif>
-    <label class="form-check-label" for="shipping_switch" >{{__('Free Shipping')}}</label>
+   {{--  <input class="form-check-input" type="checkbox" id="shipping_switch" @if($shipping->status == 1 ) checked @endif>
+    <label class="form-check-label" for="shipping_switch" >{{__('Free Shipping')}}</label> --}}
   </div>
   </small>
 </h4>
@@ -42,7 +42,7 @@
           <th>{{__('Phone')}}</th>
           <th>{{__('Created at')}}</th>
           <th>{{__('Status')}}</th>
-          <th>{{__('Driver')}}</th>
+          {{-- <th>{{__('Driver')}}</th> --}}
           <th>{{__('Purchase amount')}}</th>
           <th>{{__('Tax amount')}}</th>
           <th>{{__('Total amount')}}</th>
@@ -249,10 +249,7 @@
                 },
 
 
-                {
-                    data: 'driver',
-                    name: 'driver'
-                },
+                /* 127 */
 
                 {
                     data: 'purchase_amount',

@@ -16,11 +16,16 @@ class Suppliers extends Model
       'id',
       'fullname',
       'phone',
+      'image',
       'status',
     ];
 
-    public function supplier()
+    public function products()
     {
-      return $this->hasMany(Product::class);
+      return $this->hasMany(Product::class,'supplier_id');
+    }
+
+    public function payments(){
+      return $this->morphMany(Payment::class, 'payable');
     }
 }

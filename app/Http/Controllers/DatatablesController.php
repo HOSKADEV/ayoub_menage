@@ -19,6 +19,7 @@ use App\Models\Section;
 use App\Models\Category;
 use App\Models\Discount;
 use App\Models\District;
+use App\Models\Purchase;
 use App\Models\Suppliers;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
@@ -719,6 +720,8 @@ class DatatablesController extends Controller
         if ($row->status == 1) {
           $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-edit me-2"></i></a>';
 
+          $btn .= '<a class="dropdown-item-inline" title="' . __('Purchases') . '" href="' . url('supplier/' . $row->id . '/purchases') . '"><i class="bx bx-purchase-tag-alt me-2"></i></a>';
+
           $btn .= '<a class="dropdown-item-inline delete" title="' . __('Block') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-x-circle me-2"></i></a>';
 
         } else {
@@ -960,6 +963,68 @@ class DatatablesController extends Controller
 
       })
 
+
+      ->addColumn('created_at', function ($row) {
+
+        return date('Y-m-d', strtotime($row->created_at));
+
+      })
+
+
+      ->make(true);
+  }
+
+  public function purchases(Request $request)
+  {
+
+
+    $purchases = Purchase::where('supplier_id',$request->supplier_id)->orderBy('created_at', 'DESC');
+
+
+
+    $purchases = $purchases->get();
+
+    return datatables()
+      ->of($purchases)
+      ->addIndexColumn()
+
+      ->addColumn('action', function ($row) {
+        $btn = '';
+
+
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
+
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit me-2"></i></a>';
+
+        $btn .= '<a class="dropdown-item-inline" title="' . __('Cart') . '" href="' . url('purchase/' . $row->id . '/items') . '"><i class="bx bx-cart-alt me-2"></i></a>';
+
+
+
+        return $btn;
+      })
+
+
+
+      ->addColumn('total_amount', function ($row) {
+
+          return number_format($row->total_amount, 2, '.', ',') . ' Dzd';
+
+      })
+
+      ->addColumn('paid_amount', function ($row) {
+
+          return number_format($row->paid_amount, 2, '.', ',') . ' Dzd';
+
+      })
+
+
+      ->addColumn('items', function ($row) {
+
+
+        return $row->items()->count();
+
+
+      })
 
       ->addColumn('created_at', function ($row) {
 

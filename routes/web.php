@@ -190,6 +190,15 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/client/restore','App\Http\Controllers\ClientController@restore');
   Route::post('/client/update','App\Http\Controllers\ClientController@update');
 
+
+
+  Route::post('/purchase/create','App\Http\Controllers\PurchaseController@create');
+  Route::post('/purchase/delete','App\Http\Controllers\PurchaseController@delete');
+  Route::post('/purchase/restore','App\Http\Controllers\PurchaseController@restore');
+  Route::post('/purchase/update','App\Http\Controllers\PurchaseController@update');
+  Route::get('/supplier/{id}/purchases','App\Http\Controllers\PurchaseController@index');
+  Route::post('/purchase/list','App\Http\Controllers\DatatablesController@purchases');
+
   Route::post('/shipping/switch','App\Http\Controllers\SetController@shipping');
 
   Route::post('invoices/supplier', [InvoiceController::class, 'updateSupplier']);

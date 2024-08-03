@@ -33,7 +33,7 @@
   </div>
   {{-- Wilayas modal --}}
   <div class="modal fade" id="modal"  aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="fw-bold py-1 mb-1">{{__('Add Supplier')}}</h4>
@@ -44,6 +44,27 @@
           <input type="text" class="form-control" id="id" name="id" hidden/>
           <form class="form-horizontal" onsubmit="event.preventDefault()" action="#"
                 enctype="multipart/form-data" id="form">
+
+                <div class="card-body">
+                  <div class="d-flex align-items-start align-items-sm-center gap-4">
+                    <div hidden><img src="{{ asset('assets/img/icons/file-not-found.jpg') }}"  alt="image" class="d-block rounded" height="100" width="100" id="old-image"/> </div>
+                    <img src="{{ asset('assets/img/icons/file-not-found.jpg') }}" alt="image" class="d-block rounded" height="100" width="100" id="uploaded-image" />
+                    <div class="button-wrapper">
+                      <label for="image" class="btn btn-primary" tabindex="0">
+                        <span class="d-none d-sm-block">{{__('Upload new image')}}</span>
+                        <i class="bx bx-upload d-block d-sm-none"></i>
+                        <input class="image-input" type="file" id="image" name="image" hidden accept="image/png, image/jpeg" />
+                      </label>
+                      <button type="button" class="btn btn-outline-secondary image-reset">
+                        <i class="bx bx-reset d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">{{__('Reset')}}</span>
+                      </button>
+                      <br>
+                      {{-- <small class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</small> --}}
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-0">
 
               <div class="mb-3">
                 <label class="form-label" for="fullname">{{__('Name')}}</label>
@@ -230,6 +251,11 @@
           {
             document.getElementById('fullname').value = response.data.fullname;
             document.getElementById('phone').value = response.data.phone;
+            var image = response.data.image == null ?
+                "{{ asset('assets/img/icons/file-not-found.jpg') }}" : response.data.image;
+
+                document.getElementById('uploaded-image').src = image;
+                document.getElementById('old-image').src = image;
             $('#modal').modal('show');
 
           }
@@ -336,6 +362,17 @@
       })
     });
 
+    $(document.body).on('change', '.image-input', function() {
+        const fileInput = document.querySelector('.image-input');
+        if (fileInput.files[0]) {
+          document.getElementById('uploaded-image').src = window.URL.createObjectURL(fileInput.files[0]);
+        }
+    });
+    $(document.body).on('click', '.image-reset', function() {
+      const fileInput = document.querySelector('.image-input');
+      fileInput.value = '';
+      document.getElementById('uploaded-image').src = document.getElementById('old-image').src;
+    });
 
   });
 </script>
