@@ -8,18 +8,6 @@
       "slug": "dashboard-analytics"
     },
     {
-      "url": "/category/browse",
-      "name": "Categories",
-      "icon": "menu-icon tf-icons bx bxs-category",
-      "slug": "category-browse"
-    },
-    {
-      "url": "/subcategory/browse",
-      "name": "Subcategories",
-      "icon": "menu-icon tf-icons bx bxs-shapes",
-      "slug": "subcategory-browse"
-    },
-    {
       "url": "/product/browse",
       "name": "Products",
       "icon": "menu-icon tf-icons bx bxs-package",
@@ -30,24 +18,6 @@
       "name": "Orders",
       "icon": "menu-icon tf-icons bx bxs-spreadsheet",
       "slug": "order-browse"
-    },
-    {
-      "url": "/wilaya/browse",
-      "name": "Wilayas",
-      "icon": "menu-icon tf-icons bx bxs-spreadsheet",
-      "slug": "wilaya-browse"
-    },
-    {
-      "url": "/district/browse",
-      "name": "Districts",
-      "icon": "menu-icon tf-icons bx bxs-spreadsheet",
-      "slug": "district-browse"
-    },
-    {
-      "url": "/user/browse",
-      "name": "Users",
-      "icon": "menu-icon tf-icons bx bxs-user",
-      "slug": "user-browse"
     },
     {
       "url": "/supplier/browse",
@@ -62,12 +32,49 @@
       "slug": "client-browse"
     },
     {
-      "url": "/notice/browse",
-      "name": "Notices",
-      "icon": "menu-icon tf-icons bx bxs-bell",
-      "slug": "notice-browse"
+      "name": "Miscellaneous",
+      "icon": "menu-icon tf-icons bx bx-folder-open",
+      "slug": "misc",
+      "user": 1,
+      "submenu": [
+        {
+          "url": "/category/browse",
+          "name": "Categories",
+          "icon": "menu-icon tf-icons bx bxs-category",
+          "slug": "misc-category-browse"
+        },
+        {
+          "url": "/subcategory/browse",
+          "name": "Subcategories",
+          "icon": "menu-icon tf-icons bx bxs-shapes",
+          "slug": "misc-subcategory-browse"
+        },
+        {
+          "url": "/wilaya/browse",
+          "name": "Wilayas",
+          "icon": "menu-icon tf-icons bx bxs-spreadsheet",
+          "slug": "misc-wilaya-browse"
+        },
+        {
+          "url": "/district/browse",
+          "name": "Districts",
+          "icon": "menu-icon tf-icons bx bxs-spreadsheet",
+          "slug": "misc-district-browse"
+        },
+        {
+          "url": "/user/browse",
+          "name": "Users",
+          "icon": "menu-icon tf-icons bx bxs-user",
+          "slug": "misc-user-browse"
+        },
+        {
+          "url": "/notice/browse",
+          "name": "Notices",
+          "icon": "menu-icon tf-icons bx bxs-bell",
+          "slug": "misc-notice-browse"
+        }
+      ]
     },
-
     {
       "name": "Documentation",
       "icon": "menu-icon tf-icons bx bxs-info-square",

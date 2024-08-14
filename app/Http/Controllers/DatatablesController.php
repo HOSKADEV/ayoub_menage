@@ -43,9 +43,9 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash bx-sm me-2"></i></a>';
 
         return $btn;
       })
@@ -86,9 +86,9 @@ class DatatablesController extends Controller
 
         $btn .= '<a class="dropdown-item-inline category" title="' . __('category') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-category"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash bx-sm me-2"></i></a>';
 
         return $btn;
       })
@@ -123,17 +123,17 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit bx-sm me-2"></i></a>';
 
         if (is_null($row->section())) {
 
-          $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash bx-sm me-2"></i></a>';
 
-          $btn .= '<a class="dropdown-item-inline add_to_home" title="' . __('Add to Homepage') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-plus-square me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline add_to_home" title="' . __('Add to Homepage') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-plus-square bx-sm me-2"></i></a>';
 
         } else {
 
-          $btn .= '<a class="dropdown-item-inline remove_from_home" title="' . __('Remove from Homepage') . '" table_id="' . $row->section()->id . '" href="javascript:void(0);"><i class="bx bxs-x-square me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline remove_from_home" title="' . __('Remove from Homepage') . '" table_id="' . $row->section()->id . '" href="javascript:void(0);"><i class="bx bxs-x-square bx-sm me-2"></i></a>';
 
         }
 
@@ -177,17 +177,17 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit bx-sm me-2"></i></a>';
 
         if (is_null($row->section())) {
 
-          $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash bx-sm me-2"></i></a>';
 
-          $btn .= '<a class="dropdown-item-inline add_to_home" title="' . __('Add to Homepage') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-plus-square me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline add_to_home" title="' . __('Add to Homepage') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-plus-square bx-sm me-2"></i></a>';
 
         } else {
 
-          $btn .= '<a class="dropdown-item-inline remove_from_home" title="' . __('Remove from Homepage') . '" table_id="' . $row->section()->id . '" href="javascript:void(0);"><i class="bx bxs-x-square me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline remove_from_home" title="' . __('Remove from Homepage') . '" table_id="' . $row->section()->id . '" href="javascript:void(0);"><i class="bx bxs-x-square bx-sm me-2"></i></a>';
 
         }
 
@@ -262,19 +262,19 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash bx-sm me-2"></i></a>';
 
         /* if (is_null($row->discount())) {
 
-          $btn .= '<a class="dropdown-item-inline add_discount" title="' . __('Add discount') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-message-alt-add me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline add_discount" title="' . __('Add discount') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-message-alt-add bx-sm me-2"></i></a>';
 
         } else {
 
-          $btn .= '<a class="dropdown-item-inline edit_discount" title="' . __('Edit discount') . '" table_id="' . $row->discount()->id . '" href="javascript:void(0);"><i class="bx bxs-message-alt-edit me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline edit_discount" title="' . __('Edit discount') . '" table_id="' . $row->discount()->id . '" href="javascript:void(0);"><i class="bx bxs-message-alt-edit bx-sm me-2"></i></a>';
 
-          $btn .= '<a class="dropdown-item-inline delete_discount" title="' . __('Delete discount') . '" table_id="' . $row->discount()->id . '" href="javascript:void(0);"><i class="bx bxs-message-alt-x me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline delete_discount" title="' . __('Delete discount') . '" table_id="' . $row->discount()->id . '" href="javascript:void(0);"><i class="bx bxs-message-alt-x bx-sm me-2"></i></a>';
 
         } */
 
@@ -346,13 +346,13 @@ class DatatablesController extends Controller
         $btn = '';
 
         if ($row->deleteable == 1) {
-          $btn .= '<a class="dropdown-item-inline delete" title="' . __('Remove') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-x me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline delete" title="' . __('Remove') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-x bx-sm me-2"></i></a>';
         }
 
         if ($row->moveable == 1) {
-          $btn .= '<a class="dropdown-item-inline switch" title="' . __('Switch') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-refresh me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline switch" title="' . __('Switch') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-refresh bx-sm me-2"></i></a>';
 
-          $btn .= '<a class="dropdown-item-inline insert" title="' . __('Insert') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-redo me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline insert" title="' . __('Insert') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-redo bx-sm me-2"></i></a>';
 
         }
 
@@ -409,31 +409,31 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline note" title="' . __('Note') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-note me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline note" title="' . __('Note') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-note bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash bx-sm me-2"></i></a>';
 
-        //$btn .= '<a class="dropdown-item-inline bank" title="' . __('Bank') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-money me-2"></i></a>';
+        //$btn .= '<a class="dropdown-item-inline bank" title="' . __('Bank') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-money bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline invoiceSupplier" title="' . __('Invoice supplier') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-file me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline invoiceSupplier" title="' . __('Invoice supplier') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-file bx-sm me-2"></i></a>';
 
         if ($row->status == 'pending') {
 
-          $btn .= '<a class="dropdown-item-inline accept" title="' . __('Approve') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-check me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline accept" title="' . __('Approve') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-check bx-sm me-2"></i></a>';
 
-          $btn .= '<a class="dropdown-item-inline refuse" title="' . __('Cancel') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-x me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline refuse" title="' . __('Cancel') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-x bx-sm me-2"></i></a>';
 
         }
 
         if ($row->status == 'accepted') {
 
-          $btn .= '<a class="dropdown-item-inline ship" title="' . __('Ship') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-truck me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline ship" title="' . __('Ship') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-truck bx-sm me-2"></i></a>';
 
         }
         if ($row->status == 'ongoing') {
-          /* $btn .= '<a class="dropdown-item-inline delivered" title="' . __('Delivered') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-package me-2"></i></a>'; */
+          /* $btn .= '<a class="dropdown-item-inline delivered" title="' . __('Delivered') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-package bx-sm me-2"></i></a>'; */
 
-          $btn .= '<a class="dropdown-item-inline payment" title="' . __('Delivered') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-money me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline payment" title="' . __('Delivered') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-money bx-sm me-2"></i></a>';
         }
 
         if (!in_array($row->status, ['pending', 'canceled'])) {
@@ -449,20 +449,20 @@ class DatatablesController extends Controller
               __('Invoice') . ': ' . asset($row->invoice->file) . '%0A' .
               __('Location') . ': ' . $row->address() . '"><i class="bx bxl-whatsapp"></i></a>';
 
-            $btn .= '<a class="dropdown-item-inline invoice" title="' . __('Invoice') . '" table_id="' . $row->invoice->id . '" href="javascript:void(0);"><i class="bx bx-file me-2"></i></a>';
+            $btn .= '<a class="dropdown-item-inline invoice" title="' . __('Invoice') . '" table_id="' . $row->invoice->id . '" href="javascript:void(0);"><i class="bx bx-file bx-sm me-2"></i></a>';
 
             if ($row->status == 'ongoing' && $row->invoice->is_paid == 'no') {
 
-              // $btn .= '<a class="dropdown-item-inline payment" title="'.__('Payment').'" table_id="'.$row->id.'" href="javascript:void(0);"><i class="bx bx-money me-2"></i></a>';
+              // $btn .= '<a class="dropdown-item-inline payment" title="'.__('Payment').'" table_id="'.$row->id.'" href="javascript:void(0);"><i class="bx bx-money bx-sm me-2"></i></a>';
 
             }
 
           }
         }
 
-        $btn .= '<a class="dropdown-item-inline" title="' . __('Location') . '" href="' . $row->address() . '" target="_blank" ><i class="bx bx-map me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline" title="' . __('Location') . '" href="' . $row->address() . '" target="_blank" ><i class="bx bx-map bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline" title="' . __('Cart') . '" href="' . url('order/' . $row->id . '/items') . '"><i class="bx bx-cart me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline" title="' . __('Cart') . '" href="' . url('order/' . $row->id . '/items') . '"><i class="bx bx-cart bx-sm me-2"></i></a>';
 
         // $btn .= '<a class="dropdown-item-inline" title="'.__('Bank').'" href="'.url('order/'.$row->id.'/bank').'">Bank</a>';
 
@@ -581,9 +581,9 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline edit" title="' . __('Edit') . '" table_id="' . $row->id . '" quantity="' . $row->quantity . '"href="javascript:void(0);"><i class="bx bx-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline edit" title="' . __('Edit') . '" table_id="' . $row->id . '" quantity="' . $row->quantity . '"href="javascript:void(0);"><i class="bx bx-edit bx-sm me-2"></i></a>';
 
         return $btn;
       })
@@ -641,9 +641,9 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash bx-sm me-2"></i></a>';
 
         return $btn;
       })
@@ -689,9 +689,9 @@ class DatatablesController extends Controller
         $btn = '';
 
         if ($row->status == 1) {
-          $btn .= '<a class="dropdown-item-inline delete" title="' . __('Block') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-x-circle me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline delete" title="' . __('Block') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-x-circle bx-sm me-2"></i></a>';
         } else {
-          $btn .= '<a class="dropdown-item-inline restore" title="' . __('Activate') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-check-circle me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline restore" title="' . __('Activate') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-check-circle bx-sm me-2"></i></a>';
         }
 
 
@@ -749,18 +749,18 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-edit bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline" title="' . __('Purchases') . '" href="' . url('supplier/' . $row->id . '/purchases') . '"><i class="bx bx-purchase-tag-alt me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline" title="' . __('Purchases') . '" href="' . url('supplier/' . $row->id . '/purchases') . '"><i class="bx bx-purchase-tag-alt bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline" title="' . __('Payments') . '" href="' . url('supplier/' . $row->id . '/payments') . '"><i class="bx bx-money me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline" title="' . __('Payments') . '" href="' . url('supplier/' . $row->id . '/payments') . '"><i class="bx bx-money bx-sm me-2"></i></a>';
 
         if ($row->status == 1) {
 
-          $btn .= '<a class="dropdown-item-inline delete" title="' . __('Block') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-x-circle me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline delete" title="' . __('Block') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-x-circle bx-sm me-2"></i></a>';
 
         } else {
-          $btn .= '<a class="dropdown-item-inline restore" title="' . __('Activate') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-check-circle me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline restore" title="' . __('Activate') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-check-circle bx-sm me-2"></i></a>';
         }
         return $btn;
       })
@@ -814,9 +814,9 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline view" title="' . __('View') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-show me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline view" title="' . __('View') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-show bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash bx-sm me-2"></i></a>';
 
         return $btn;
       })
@@ -858,9 +858,9 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-edit bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash bx-sm me-2"></i></a>';
 
         return $btn;
       })
@@ -891,9 +891,9 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-edit bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash bx-sm me-2"></i></a>';
 
         return $btn;
       })
@@ -937,9 +937,9 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-edit bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash bx-sm me-2"></i></a>';
 
         return $btn;
       })
@@ -973,11 +973,11 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline" title="' . __('Payments') . '" href="' . url('client/' . $row->id . '/payments') . '"><i class="bx bx-money me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline" title="' . __('Payments') . '" href="' . url('client/' . $row->id . '/payments') . '"><i class="bx bx-money bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash bx-sm me-2"></i></a>';
 
         return $btn;
       })
@@ -1041,11 +1041,11 @@ class DatatablesController extends Controller
         $btn = '';
 
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline" title="' . __('Cart') . '" href="' . url('purchase/' . $row->id . '/items') . '"><i class="bx bx-cart-alt me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline" title="' . __('Cart') . '" href="' . url('purchase/' . $row->id . '/items') . '"><i class="bx bx-cart-alt bx-sm me-2"></i></a>';
 
 
 
@@ -1110,9 +1110,9 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline edit" title="' . __('Edit') . '" table_id="' . $row->id . '" quantity="' . $row->quantity . '" price="' . $row->price . '"href="javascript:void(0);"><i class="bx bx-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline edit" title="' . __('Edit') . '" table_id="' . $row->id . '" quantity="' . $row->quantity . '" price="' . $row->price . '"href="javascript:void(0);"><i class="bx bx-edit bx-sm me-2"></i></a>';
 
         return $btn;
       })
@@ -1189,14 +1189,14 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash bx-sm me-2"></i></a>';
 
         if ($row->is_paid == 'no') {
-          $btn .= '<a class="dropdown-item-inline pay" title="' . __('Pay') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-money me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline pay" title="' . __('Pay') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-money bx-sm me-2"></i></a>';
         }
 
         if (empty ($row->receipt)) {
-          $btn .= '<a class="dropdown-item-inline attach" title="' . __('Add receipt') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-file-plus me-2"></i></a>';
+          $btn .= '<a class="dropdown-item-inline attach" title="' . __('Add receipt') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-file-plus bx-sm me-2"></i></a>';
         }
 
         return $btn;

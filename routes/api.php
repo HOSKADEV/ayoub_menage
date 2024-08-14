@@ -125,6 +125,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('/v1/client/restore','App\Http\Controllers\ClientController@restore');
   Route::post('/v1/client/get','App\Http\Controllers\ClientController@get');
 
+  Route::post('/v1/supplier/get','App\Http\Controllers\Suppliers\supplierController@get');
+
   Route::post('/v1/invoice/update','App\Http\Controllers\InvoiceController@update');
 
 

@@ -7,6 +7,21 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-repeater/dist/js/repeater.min.js"></script> --}}
 @endsection
 
+@section('page-style')
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+@endsection
+
 @section('content')
 
     <h4 class="fw-bold py-3 mb-3">
@@ -38,7 +53,7 @@
     </div>
 
     <div class="modal fade" id="createModal" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="fw-bold py-1 mb-1">{{ __('Create purchase') }}</h4>
@@ -50,7 +65,7 @@
                         <div class="row mb-3">
                             <div class="col-5">
                                 <label for="level" class="form-label">{{ __('Paid amount') }}</label>
-                                <input class="form-control" type="number" name="paid_amount" />
+                                <input class="form-control" type="number" name="paid_amount" id="paidAmount"/>
                             </div>
                             <div class="col-5">
                                 <label for="level" class="form-label">{{ __('Receipt') }}</label>
@@ -62,33 +77,51 @@
                         <div class="repeater" id="repeater">
                             <div data-repeater-list="items">
                                 <div data-repeater-item class="row mb-3">
-                                    <div class="col-5">
+                                    <div class="col-3">
                                         <label for="product" class="form-label">{{ __('Product') }}</label>
 
                                         <select class="selectpicker form-control purchase-item" data-dropup-auto="false" data-live-search="true" name="product_id">
                                             <option selected disabled>{{ __('Select product') }}</option>
                                             @foreach ($products as $product)
-                                                <option value="{{ $product->id }}"
-                                                    price="{{ $product->purchasing_price }}">{{ $product->unit_name }}
+                                                <option
+                                                    value="{{ $product->id }}"
+                                                    price="{{ $product->purchasing_price}}"
+                                                    units="{{ $product->pack_units}}"
+                                                    >{{ $product->unit_name }}
                                                 </option>
                                             @endforeach
                                         </select>
                                         <input class="form-control" type="hidden" name="name" />
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2">
                                         <label for="price" class="form-label">{{ __('Price') }}</label>
-                                        <input class="form-control" type="number" name="price" />
+                                        <input class="form-control item-price" type="number" name="price" />
                                     </div>
 
-                                    <div class="col-2">
+                                    <div class="col-1">
+                                      <label for="units" class="form-label">{{ __('Units') }}</label>
+                                      <input class="form-control" type="number" name="units" readonly/>
+                                  </div>
+
+                                  <div class="col-1">
+                                    <label for="packs" class="form-label">{{ __('Packs') }}</label>
+                                    <input class="form-control item-packs" type="number" name="packs"/>
+                                </div>
+
+                                    <div class="col-1">
                                         <label for="quantity" class="form-label">{{ __('Quantity') }}</label>
-                                        <input class="form-control" type="number" name="quantity" />
+                                        <input class="form-control item-quantity" type="number" name="quantity"/>
                                     </div>
 
-
                                     <div class="col-2">
+                                      <label for="amount" class="form-label">{{ __('Amount') }}</label>
+                                      <input class="form-control item-amount" type="number" name="amount" readonly/>
+                                  </div>
+
+
+                                    <div class="col-1">
                                         <label for="quantity" class="form-label">{{ __('Actions') }}</label></br>
-                                        <button type="button" class="btn btn-md btn-danger btn-block" data-repeater-delete>
+                                        <button type="button" class="btn btn-md btn-danger btn-block item-remove" name="remove" data-repeater-delete>
                                             <i class='bx bx-trash'></i>
                                         </button>
                                     </div>
@@ -161,11 +194,13 @@
         $(document).ready(function() {
             // ajax for loading page request rsponce
             $(document).ajaxStart(function() {
+                $("#create_submit").prop('disabled', true);
                 $('#loading-spinner').show();
                 $('#loading-page').hide();
             });
 
             $(document).ajaxStop(function() {
+              $("#create_submit").prop('disabled', false);
                 $('#loading-spinner').hide();
                 $('#loading-page').show();
             });
@@ -459,13 +494,41 @@
             $(document.body).on('change', '.purchase-item', function(event) {
                 var select = event.target;
                 var option = select.options[select.selectedIndex];
-                var value = select.value;
+
                 var name = option.text;
                 var price = option.getAttribute('price');
-                //console.log(select.name.replace('id','price'));
-                $("[name='" + select.name.replace('product_id', 'name') + "']").val(name);
-                $("[name='" + select.name.replace('product_id', 'price') + "']").val(price);
+                var units = option.getAttribute('units');
 
+                var index = select.name.charAt(6);
+
+                $("[name='items["+index+"][name]'").val(name);
+                $("[name='items["+index+"][price]'").val(price);
+                $("[name='items["+index+"][units]'").val(units);
+
+                update_row(index);
+            });
+
+            $(document.body).on('click', '.item-remove', function(event) {
+                var index = $(this).attr('name').charAt(6);
+                var amount = $("[name='items["+index+"][amount]'");
+                if(amount){
+                  amount.val(0);
+                  update_total();
+                }
+            });
+
+            $(document.body).on('keyup change blur', '.item-packs', function(event) {
+                var index = $(this).attr('name').charAt(6);
+                update_row(index);
+            });
+            $(document.body).on('keyup change blur', '.item-quantity', function(event) {
+              var index = $(this).attr('name').charAt(6);
+              update_row(index);
+            });
+
+            $(document.body).on('keyup change blur', '.item-price', function(event) {
+              var index = $(this).attr('name').charAt(6);
+              update_row(index);
             });
         });
         $('#repeater').repeater({
@@ -479,5 +542,35 @@
                     // }
                 }
             });
+
+            function update_row(index){
+              var price = $("[name='items["+index+"][price]'").val();
+              var units = $("[name='items["+index+"][units]'").val();
+              var packs = $("[name='items["+index+"][packs]'").val();
+              var quantity = $("[name='items["+index+"][quantity]'").val();
+
+              if(units && packs){
+                var quantity = units * packs;
+                $("[name='items["+index+"][quantity]'").val(quantity);
+              }
+
+              if(price && quantity){
+                var amount = price * quantity;
+                $("[name='items["+index+"][amount]'").val(amount);
+              }
+
+              update_total();
+            }
+
+            function update_total(){
+              var amounts = document.getElementsByClassName('item-amount');
+              var total = 0;
+
+              for(var i=0; i<amounts.length; i++){
+                total += amounts[i].value * 1;
+              }
+
+              $('#paidAmount').val(total);
+            }
     </script>
 @endsection

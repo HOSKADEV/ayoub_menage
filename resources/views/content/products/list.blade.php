@@ -217,8 +217,11 @@
                   </div>
 
                   <div class="form-group col-md-4 p-3">
-                    <label class="form-label" for="name">{{__('Percentage')}}</label>
-                    <input type="number" class="form-control" id="price_percentage"/>
+                    <label class="form-label" for="name">{{__('Percentage')}} (%)</label>
+                    <div class="input-group input-group-merge">
+                      <input type="number" class="form-control" id="price_percentage"/>
+                      <span class="input-group-text">%</span>
+                    </div>
                   </div>
                 </div>
 

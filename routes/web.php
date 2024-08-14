@@ -36,8 +36,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/version', 'App\Http\Controllers\VersionController@index')->name('version');
   Route::post('/version/update', 'App\Http\Controllers\VersionController@update')->name('version.update');
   Route::get('/stats', 'App\Http\Controllers\dashboard\Analytics@stats')->name('stats');
-  Route::get('/category/browse', 'App\Http\Controllers\CategoryController@index')->name('category-browse');
-  Route::get('/subcategory/browse', 'App\Http\Controllers\SubcategoryController@index')->name('subcategory-browse');
+  Route::get('/category/browse', 'App\Http\Controllers\CategoryController@index')->name('misc-category-browse');
+  Route::get('/subcategory/browse', 'App\Http\Controllers\SubcategoryController@index')->name('misc-subcategory-browse');
   Route::get('/product/browse', 'App\Http\Controllers\ProductController@index')->name('product-browse');
   Route::get('/order/{id}/items', 'App\Http\Controllers\ItemController@index')->name('order-items');
   Route::get('/category/list', 'App\Http\Controllers\DatatablesController@categories')->name('category-list');
@@ -58,20 +58,20 @@ Route::group(['middleware' => ['auth']], function () {
 
   Route::get('/order/browse', 'App\Http\Controllers\OrderController@index')->name('order-browse');
   Route::get('/offer/browse', 'App\Http\Controllers\OfferController@index')->name('offer-browse');
-  Route::get('/user/browse', 'App\Http\Controllers\UserController@index')->name('user-browse');
+  Route::get('/user/browse', 'App\Http\Controllers\UserController@index')->name('misc-user-browse');
   Route::get('/wilaya/list', [DatatablesController::class, 'wilayas'])->name('wilaya-list');
   Route::post('/district/list', [DatatablesController::class, 'districts'])->name('district-list');
   Route::get('/supplier/list', [DatatablesController::class, 'suppliers'])->name('supplier-list');
-  Route::get('/notice/browse', 'App\Http\Controllers\NoticeController@index')->name('notice-browse');
+  Route::get('/notice/browse', 'App\Http\Controllers\NoticeController@index')->name('misc-notice-browse');
   Route::get('/driver/browse', 'App\Http\Controllers\DriverController@index')->name('driver-browse');
   Route::get('/ad/browse', 'App\Http\Controllers\AdController@index')->name('ad-browse');
   Route::get('/section/browse', 'App\Http\Controllers\SectionController@index')->name('section-browse');
   Route::get('/family/browse', 'App\Http\Controllers\FamilyController@index')->name('family-browse');
   Route::get('/client/browse', 'App\Http\Controllers\ClientController@index')->name('client-browse');
   // Router for wilayas Controller
-  Route::get('/wilaya/browse', [WilayasController::class, 'index'])->name('wilaya-browse');
+  Route::get('/wilaya/browse', [WilayasController::class, 'index'])->name('misc-wilaya-browse');
   // Route for Districts controller
-  Route::get('/district/browse', [districtControler::class, 'index'])->name('district-browse');
+  Route::get('/district/browse', [districtControler::class, 'index'])->name('misc-district-browse');
   // Router for search suppliers ajax
   Route::get('/supplier/browse', [supplierController::class, 'index'])->name('supplier-browse');
   Route::get('/suppliers/search', [supplierController::class , 'search']);

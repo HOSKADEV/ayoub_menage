@@ -51,13 +51,26 @@ class PurchaseController extends Controller
 
         $items = $request->items;
 
-        array_walk($items, function(&$item, $key, $purchase_id) {
+        $keys_to_keep = ["product_id", 'purchase_id', "name", "price", "quantity", "amount"];
+
+        /* array_walk($items, function(&$item, $key, $purchase_id) {
           $item += [
             'purchase_id' =>  $purchase_id,
-            'amount' => $item['price'] * $item['quantity']
+            //'amount' => $item['price'] * $item['quantity']
           ];
-        }, $purchase->id );
+        }, $purchase->id ); */
 
+        $items = array_map(function($item) use ($keys_to_keep, $purchase) {
+
+          $filtered_item = array_filter(
+            $item + ['purchase_id' =>  $purchase->id],
+              function($key) use ($keys_to_keep) {
+                  return in_array($key, $keys_to_keep);
+              },
+              ARRAY_FILTER_USE_KEY
+          );
+          return $filtered_item;
+      }, $items);
 
         //dd($items);
 
