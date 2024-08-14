@@ -158,6 +158,8 @@
 "Unit price" : "سعر الوحدة",
 "Pack price" : "سعر الحزمة",
 "Pack units" : "عدد الوحدات في الحزمة",
+"Packs number" : "عدد الحزمات",
+"Total quantity" : "الكمية الاجمالية",
 "Not selected" : "غير محدد",
 "Discount percentage" : "نسبة التخفيض",
 "Start date" : "تاريخ البدأ",
@@ -321,6 +323,41 @@
 "Clients" : "المحلات",
 "Browse clients" : "تصفح المحلات",
 "Clients table" : "جدول المحلات",
-"Add client" : "إضافة محل"
+"Add client" : "إضافة محل",
+
+"Purchase" : "الفاتورة",
+"Purchases" : "الفواتير",
+"Browse purchases" : "تصفح الفواتير",
+"Add purchase" : "إضافة فاتورة",
+"Create purchase" : "إنشاء فاتورة",
+"Purchases table" : "جدول الفواتير",
+
+"Payments" : "المدفوعات",
+"Browse payments" : "تصفح المدفوعات",
+"Add payment" : "إضافة دفعة",
+"Payments table" : "جدول المدفوعات",
+
+"Paid amount" : "السعر المدفوع",
+"Purchase items" : "عدد المشتريات",
+"Debt" : "مجموع الديون",
+"Debt amount" : "الديون",
+"Receipt" : "الملف المرفق",
+"Add receipt" : "أضف ملف مرفق",
+
+"show file" : "اظهر الملف",
+"file does not exist" : "الملف غير موجود",
+
+"is Paid" : "حالة الدفع",
+"Paid at" : "تاريخ الدفع",
+"from date" : "من تاريخ",
+"to date" : "إلى تاريخ",
+"Paid filter" : "حسب حالة الدفع",
+
+"Select product" : "اختر المنتج",
+
+"Defaults" : "الاعدادات الافتراضية",
+"Default category" : "الفئة الافتراضية",
+"Default subcategory" : "الصنف الافتراضي"
+
 
 }

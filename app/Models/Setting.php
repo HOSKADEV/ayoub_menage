@@ -18,6 +18,8 @@ class Setting extends Model
         'bank_account_sedad',
         'bank_account_bimbank',
         'bank_account_masrfy',
+        'default_category',
+        'default_subcategory'
     ];
 
     protected $casts = [

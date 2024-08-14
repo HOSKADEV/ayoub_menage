@@ -4,6 +4,7 @@ namespace App\Http\Controllers\settings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\settings\SettingResource;
+use App\Models\Category;
 use App\Models\Setting;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,7 +15,8 @@ class settingController extends Controller
     public function index()
     {
       $settings = Setting::first();
-      return view('content.settings.index', compact('settings'));
+      $categories = Category::all();
+      return view('content.settings.index', compact('settings','categories'));
     }
 
     public function update(Request $request)
@@ -26,7 +28,10 @@ class settingController extends Controller
         'bank_account_sedad'   =>'required|numeric',
         'bank_account_bimbank' =>'required|numeric',
         'bank_account_masrfy'  =>'required|numeric',
+        'default_category'  =>'sometimes',
+        'default_subcategory'  =>'sometimes',
       ]);
+
 
       if ($validator->fails()) {
         return response()->json([

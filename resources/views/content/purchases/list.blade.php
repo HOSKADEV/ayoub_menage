@@ -26,7 +26,9 @@
                         <th>#</th>
                         <th>{{ __('Total amount') }}</th>
                         <th>{{ __('Paid amount') }}</th>
+                        <th>{{ __('Debt amount') }}</th>
                         <th>{{ __('Purchase items') }}</th>
+                        <th>{{ __('Receipt') }}</th>
                         <th>{{ __('Created at') }}</th>
                         <th>{{ __('Actions') }}</th>
                     </tr>
@@ -113,6 +115,45 @@
         </div>
     </div>
 
+    {{-- edit modal --}}
+<div class="modal fade" id="edit_modal"  aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="fw-bold py-1 mb-1">{{__('update purchase')}}</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+        <form class="form-horizontal" onsubmit="event.preventDefault()" action="#"
+          enctype="multipart/form-data" id="edit_form">
+
+          {{-- <input type="text" class="form-control" name="purchase_id" value="{{$purchase->id}}" hidden/> --}}
+
+          <input type="text" class="form-control" id="purchase_id" name="purchase_id" hidden/>
+
+          <div class="mb-3">
+            <label for="level" class="form-label">{{ __('Paid amount') }}</label>
+            <input class="form-control" type="number" id="paid_amount" name="paid_amount" />
+        </div>
+        <div class="mb-3">
+            <label for="level" class="form-label">{{ __('Receipt') }}</label>
+            <input class="form-control" type="file" name="receipt" />
+        </div>
+
+
+
+          <div class="mb-3" style="text-align: center">
+            <button type="submit" id="submit_edit" name="submit_edit" class="btn btn-primary">{{__('Send')}}</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
 
 @section('page-script')
@@ -172,8 +213,35 @@
                         },
 
                         {
+                            data: 'debt_amount',
+                            name: 'debt_amount',
+                            render: function(data) {
+                                if (data < 0) {
+                                  return  '<span class="text-danger">'+ new Intl.NumberFormat().format(data) +' Dzd</span>';
+                                } else {
+                                  return  '<span class="text-success">'+ new Intl.NumberFormat().format(data) +' Dzd</span>';
+                                }
+                            }
+                        },
+
+                        {
                             data: 'items',
                             name: 'items'
+                        },
+
+                        {
+                            data: 'file',
+                            name: 'file',
+                            render: function(data) {
+                                if (data) {
+                                    return '<a href=' + data +
+                                        '><i class="bx bx-image me-2"></i><span class="align-middle">{{ __('show file') }}</span></a>';
+                                } else {
+                                    return '<a>' + '{{ __('file does not exist') }}' +
+                                        '</span></a>';
+                                }
+                            }
+
                         },
 
                         {
@@ -208,61 +276,51 @@
 
 
             $(document.body).on('click', '.update', function() {
-                document.getElementById('form').reset();
-                document.getElementById('form_type').value = "update";
-                var ad_id = $(this).attr('table_id');
-                $("#id").val(ad_id);
+                //document.getElementById('form').reset();
+                //document.getElementById('form_type').value = "update";
+                var purchase_id = $(this).attr('table_id');
+                $("#purchase_id").val(purchase_id);
 
                 $.ajax({
-                    url: '{{ url('ad/update') }}',
+                    url: '{{ url('purchase/update') }}',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: 'POST',
                     data: {
-                        ad_id: ad_id
+                        purchase_id: purchase_id
                     },
                     dataType: 'JSON',
                     success: function(response) {
                         if (response.status == 1) {
 
-                            document.getElementById('name').value = response.data.name;
-                            document.getElementById('url').value = response.data.url;
+                            document.getElementById('paid_amount').value = response.data.paid_amount;
 
-                            //console.log(response.data.image);
-
-                            var image = response.data.image == null ?
-                                "{{ asset('assets/img/icons/ad-not-found.jpg') }}" : response
-                                .data.image;
-
-                            document.getElementById('uploaded-image').src = image;
-                            document.getElementById('old-image').src = image;
-
-                            $("#modal").modal("show");
+                            $("#edit_modal").modal("show");
                         }
                     }
                 });
             });
 
-            $('#submit').on('click', function() {
+            $('#submit_edit').on('click', function() {
 
-                var formdata = new FormData($("#form")[0]);
-                var formtype = document.getElementById('form_type').value;
-                console.log(formtype);
-                if (formtype == "create") {
-                    url = "{{ url('ad/create') }}";
+                var formdata = new FormData($("#edit_form")[0]);
+                //var formtype = document.getElementById('form_type').value;
+                //console.log(formtype);
+                /* if (formtype == "create") {
+                    url = "{{ url('purchase/create') }}";
                 }
 
                 if (formtype == "update") {
-                    url = "{{ url('ad/update') }}";
-                    formdata.append("ad_id", document.getElementById('id').value)
-                }
+                    url = "{{ url('purchase/update') }}";
+                    formdata.append("purchase_id", document.getElementById('id').value)
+                } */
 
-                $("#modal").modal("hide");
+                $("#edit_modal").modal("hide");
 
 
                 $.ajax({
-                    url: url,
+                    url: "{{ url('purchase/update') }}",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -355,7 +413,7 @@
 
             $(document.body).on('click', '.delete', function() {
 
-                var ad_id = $(this).attr('table_id');
+                var purchase_id = $(this).attr('table_id');
 
                 Swal.fire({
                     title: "{{ __('Warning') }}",
@@ -370,58 +428,13 @@
                     if (result.isConfirmed) {
 
                         $.ajax({
-                            url: "{{ url('ad/delete') }}",
+                            url: "{{ url('purchase/delete') }}",
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             type: 'POST',
                             data: {
-                                ad_id: ad_id
-                            },
-                            dataType: 'JSON',
-                            success: function(response) {
-                                if (response.status == 1) {
-
-                                    Swal.fire(
-                                        "{{ __('Success') }}",
-                                        "{{ __('success') }}",
-                                        'success'
-                                    ).then((result) => {
-                                        location.reload();
-                                    });
-                                }
-                            }
-                        });
-
-
-                    }
-                })
-            });
-
-            $(document.body).on('click', '.delete', function() {
-
-                var ad_id = $(this).attr('table_id');
-
-                Swal.fire({
-                    title: "{{ __('Warning') }}",
-                    text: "{{ __('Are you sure?') }}",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: "{{ __('Delete') }}",
-                    cancelButtonText: "{{ __('Cancel') }}"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-
-                        $.ajax({
-                            url: "{{ url('ad/delete') }}",
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            type: 'POST',
-                            data: {
-                                ad_id: ad_id
+                                purchase_id: purchase_id
                             },
                             dataType: 'JSON',
                             success: function(response) {

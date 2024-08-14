@@ -18,6 +18,8 @@ class Purchase extends Model
       'paid_amount'
     ];
 
+    protected $softCascade = ['items'];
+
     public function supplier(){
       return $this->belongsTo(Suppliers::class);
     }

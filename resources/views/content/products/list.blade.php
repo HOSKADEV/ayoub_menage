@@ -108,9 +108,9 @@
                     {{-- end swiper image "add mulite" --}}
                   </div>
                   {{-- start button for upload new video  --}}
-                    <div class="d-flex align-items-start align-items-sm-center gap-4 mt-4">
+                    {{-- <div class="d-flex align-items-start align-items-sm-center gap-4 mt-4">
                       <img src="{{ asset('assets/img/icons/file-not-found.jpg') }}" alt="image" class=" rounded" height="100" width="100" id="uploaded-video" />
-                      {{-- Start button add mulite videos --}}
+
                       <div class="mx-auto mb-3">
                         <label for="videoInput" class="btn btn-primary text-center" tabindex="0">
                           <span class="d-none d-sm-block">{{__('Upload new video')}}</span>
@@ -118,11 +118,11 @@
                           <input type="file" id="videoInput" name="video[]" class="video-input" hidden max="10485760" accept="video/mp4" multiple>
                         </label>
                       </div>
-                      {{-- end button add mulite videos --}}
-                    </div>
 
-                    {{-- Start swiper رvideos "add mulite videos" --}}
-                    <div class="swiper-body">
+                    </div> --}}
+
+
+                    {{-- <div class="swiper-body">
                       <div class="swiper swiper-container">
                         <div class="swiper-wrapper" id="swiperWrapperVideos">
                           <div class="swiper-slide" >
@@ -133,19 +133,10 @@
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
                       </div>
-                    </div>
-                    {{-- end swiper رvideos "add mulite videos" --}}
-                  {{-- End button for upload new video  --}}
+                    </div> --}}
+
                 </div>
                 <hr class="my-2">
-
-                <div class="mb-3">
-                  <label class="form-label" for="name">{{__('Name')}}</label>
-                  <div class="input-group input-group-merge">
-                    <input dir="rtl" type="text" class="form-control" id="unit_name" name="unit_name" value="{{ old('unit_name')}}" placeholder="{{__('Unit name')}}"/>
-                    <input dir="rtl" type="text" class="form-control" id="pack_name" name="pack_name" value="{{ old('pack_name')}}" placeholder="{{__('Pack name')}}"/>
-                  </div>
-                </div>
 
                 <div class="mb-3">
                   <label for="supplier">{{__('Name Supplier')}}</label>
@@ -156,41 +147,105 @@
                   </select>
                 </div>
 
+
+
                 <div class="mb-3">
+                  <label class="form-label" for="name">{{__('Status')}}</label>
+                    <select class="form-select" id="status" name="status">
+                      <option value="1" > {{__('Available')}}</option>
+                      <option value="2" > {{__('Unavailable')}}</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="" class="form-label">{{__('Description')}}</label>
+                  <textarea name="description" id="description" class="form-control" rows="3">{{ old('description')}}</textarea>
+                </div>
+
+                {{-- <div class="mb-3">
                   <label for="supplier">{{__('Code Supplier')}}</label>
                     <input type="text" id="code_supplier" name="code_supplier" value="{{ old('code_supplier') }}" class="form-control" placeholder="{{__('Code Supplier')}}">
-                </div>
+                </div> --}}
 
                 {{-- <div class="mb-3">
                   <label for="supplier">{{__('Code Bar')}}</label>
                     <input type="text" id="code_bar" name="code_bar" class="form-control" placeholder="{{__('Code Bar')}}">
                 </div> --}}
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                   <label class="form-label" for="name">{{__('Quantity')}}</label>
                   <div class="input-group input-group-merge">
                     <input type="text" class="form-control" id="quantity" name="quantity" value="{{ old('quantity')}}"/>
                   </div>
-                </div>
+                </div> --}}
               </div>
               <div class="col-md-6">
                 <div class="mb-3">
+                  <label class="form-label" for="name">{{__('Name')}}</label>
+                  {{-- <div class="input-group input-group-merge"> --}}
+                    <input dir="rtl" type="text" class="form-control" id="unit_name" name="unit_name" value="{{ old('unit_name')}}" placeholder="{{__('Unit name')}}"/>
+                    {{-- <input dir="rtl" type="text" class="form-control" id="pack_name" name="pack_name" value="{{ old('pack_name')}}" placeholder="{{__('Pack name')}}"/>
+                  </div> --}}
+                </div>
+
+
+               {{--  <div class="mb-3">
                   <label class="form-label" for="name">{{__('Purchasing Price')}}</label>
                   <div class="input-group input-group-merge">
                     <input type="text" class="form-control" id="purchasing_price" name="purchasing_price" value="{{ old('purchasing_price')}}" placeholder="{{__('Purchasing Price')}}"/>
                   </div>
-                </div>
-                <div class="mb-3">
+                </div> --}}
+                {{-- <div class="mb-3">
                   <label class="form-label" for="name">{{__('Selling price')}}</label>
                   <div class="input-group input-group-merge">
-                    <input type="text" class="form-control" id="unit_price" name="unit_price" value="{{ old('unit_price')}}" placeholder="{{__('Unit price')}}"/>
+                    <input type="number" class="form-control" id="purchasing_price" name="purchasing_price" value="{{ old('purchasing_price')}}" placeholder="{{__('Purchasing Price')}}"/>
+                    <input type="number" class="form-control" id="unit_price" name="unit_price" value="{{ old('unit_price')}}" placeholder="{{__('Selling price')}}"/>
                     <input type="text" class="form-control" id="pack_price" name="pack_price" value="{{ old('pack_price')}}" placeholder="{{__('Pack price')}}"/>
+                    <input type="number" class="form-control" id="price_percentage" placeholder="{{__('Percentage')}}"/>
+                  </div>
+                </div> --}}
+
+                <div class="row  justify-content-between">
+                  <div class="form-group col-md-4 p-3">
+                    <label class="form-label" for="name">{{__('Purchasing price')}}</label>
+                    <input type="number" class="form-control" id="purchasing_price" name="purchasing_price" value="{{ old('purchasing_price')}}"/>
+                  </div>
+
+                  <div class="form-group col-md-4 p-3">
+                    <label class="form-label" for="name">{{__('Selling price')}}</label>
+                    <input type="number" class="form-control" id="unit_price" name="unit_price" value="{{ old('unit_price')}}"/>
+                  </div>
+
+                  <div class="form-group col-md-4 p-3">
+                    <label class="form-label" for="name">{{__('Percentage')}}</label>
+                    <input type="number" class="form-control" id="price_percentage"/>
                   </div>
                 </div>
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                   <label class="form-label" for="name">{{__('Pack units')}}</label>
+                  <div class="input-group input-group-merge">
                     <input type="number" class="form-control" id="pack_units" name="pack_units" value="{{ old('pack_units')}}" placeholder="{{__('Pack units')}}"/>
+                    <input type="number" class="form-control" id="packs_number" placeholder="{{__('Packs number')}}"/>
+                    <input type="number" class="form-control" id="quantity" name="quantity" value="{{ old('quantity')}}" placeholder="{{__('Total quantity')}}"/>
+                  </div>
+                </div> --}}
+
+                <div class="row  justify-content-between">
+                  <div class="form-group col-md-4 p-3">
+                    <label class="form-label" for="name">{{__('Pack units')}}</label>
+                    <input type="number" class="form-control" id="pack_units" name="pack_units" value="{{ old('pack_units')}}"/>
+                  </div>
+
+                  <div class="form-group col-md-4 p-3">
+                    <label class="form-label" for="name">{{__('Packs number')}}</label>
+                    <input type="number" class="form-control" id="packs_number"/>
+                  </div>
+
+                  <div class="form-group col-md-4 p-3">
+                    <label class="form-label" for="name">{{__('Total quantity')}}</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" value="{{ old('quantity')}}"/>
+                  </div>
                 </div>
 
                 <div class="mb-3">
@@ -215,18 +270,6 @@
                         <option value="" > {{__('Select category first')}} </option>
                     </select>
                   </div>
-                </div>
-                <div class="mb-3">
-                  <label for="" class="form-label">{{__('وصف منتج')}}</label>
-                  <textarea name="description" id="description" class="form-control">{{ old('description')}}</textarea>
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="name">{{__('Status')}}</label>
-                    <select class="form-select" id="status" name="status">
-                      <option value="1" > {{__('Available')}}</option>
-                      <option value="2" > {{__('Unavailable')}}</option>
-                    </select>
                 </div>
               </div>
             </div>
@@ -404,7 +447,7 @@
     }
     // -----------------------------------------------------
     // add multe videos in siwper --------------------------
-    var swiper = new Swiper('.swiper-container', {
+    /* var swiper = new Swiper('.swiper-container', {
         slidesPerView: 3,
         spaceBetween: 10,
         pagination: {
@@ -499,7 +542,7 @@
         swiper.update(); // Update Swiper after removing a slide
         // console.log(videosArray);
       }
-    }
+    } */
     // -----------------------------------------------------
 
   $(document).ready(function () {
@@ -653,6 +696,42 @@
         });
     }
 
+    function update_selling_price(){
+      var price_percentage = document.getElementById('price_percentage').value;
+      var purchasing_price = document.getElementById('purchasing_price').value;
+
+      if(purchasing_price){
+        var selling_price =  purchasing_price * (1 + price_percentage/100);
+        document.getElementById('unit_price').value = selling_price.toFixed(2);
+      }
+    }
+
+    function update_quantity(){
+      var pack_units = document.getElementById('pack_units').value;
+      var packs_number = document.getElementById('packs_number').value;
+
+      if(pack_units){
+        var quantity =  pack_units * packs_number;
+        document.getElementById('quantity').value = quantity;
+      }
+    }
+
+    $('#price_percentage').on('keyup', function(){update_selling_price();});
+
+    $('#purchasing_price').on('keyup', function(){update_selling_price();});
+
+    $('#packs_number').on('keyup', function(){update_quantity();});
+
+    $('#pack_units').on('keyup', function(){update_quantity();});
+
+    $('#price_percentage').on('change', function(){update_selling_price();});
+
+    $('#purchasing_price').on('change', function(){update_selling_price();});
+
+    $('#packs_number').on('change', function(){update_quantity();});
+
+    $('#pack_units').on('change', function(){update_quantity();});
+
     $('#category').on('change', function()
     {
       var category_id = document.getElementById('category').value;
@@ -730,6 +809,11 @@
       document.getElementById('form_type').value = "create";
       document.getElementById('uploaded-image').src = "{{ asset('assets/img/icons/file-not-found.jpg') }}" ;
       document.getElementById('old-image').src = "{{ asset('assets/img/icons/file-not-found.jpg') }}" ;
+      document.getElementById('category_id').value = '{{$settings->default_category}}';
+      $('#category_id').trigger("change", function() {
+                document.getElementById('subcategory_id').value =
+                    '{{ $settings->default_subcategory }}';
+            });
       $('#true-select').show();
       $('#false-select').hide();
       $("#modal").modal('show');
@@ -756,31 +840,36 @@
                 // console.log(response.data);
 
                 var wrapperimages = document.getElementById('swiperWrapper');
-                var wrappervideos = document.getElementById('swiperWrapperVideos');
+                //var wrappervideos = document.getElementById('swiperWrapperVideos');
                 var uploadedImage = document.getElementById('uploaded-image');
-                var uploadedVideo = document.getElementById('uploaded-video');
+                //var uploadedVideo = document.getElementById('uploaded-video');
 
                 document.getElementById('unit_name').value =  response.data.unit_name;
-                document.getElementById('pack_name').value =  response.data.pack_name;
+                //document.getElementById('pack_name').value =  response.data.pack_name;
                 document.getElementById('unit_price').value =  response.data.unit_price;
-                document.getElementById('pack_price').value =  response.data.pack_price;
+                //document.getElementById('pack_price').value =  response.data.pack_price;
                 document.getElementById('pack_units').value =  response.data.pack_units;
                 document.getElementById('purchasing_price').value =  response.data.purchasing_price;
                 document.getElementById('unit_type').value =  response.data.unit_type;
                 document.getElementById('quantity').value =  response.data.stock;
                 document.getElementById('description').value =  response.data.description;
-                document.getElementById('code_supplier').value =  response.data.code_supplier;
+                //document.getElementById('code_supplier').value =  response.data.code_supplier;
                 // document.getElementById('code_bar').value =  response.data.code_bar;
                 document.getElementById('status').value =  response.data.status == 'available' ? 1 : 2 ;
+
+                var price_percentage = 100 * ( response.data.unit_price / response.data.purchasing_price - 1)
+                document.getElementById('price_percentage').value =  price_percentage.toFixed(2);
+
+                document.getElementById('packs_number').value = response.data.stock / response.data.pack_units;
 
                 var nameSuplier = response.data.name_supplers == null ? ' لا يوجد مورد أو تم حذفه  '
                                                                       : response.data.name_supplers;
                 document.getElementById('supplier_id').value =  response.data.supplier_id;
 
                 var images = response.data.images;
-                var videos = response.data.videos;
+                //var videos = response.data.videos;
                 images.length == 0 ? uploadedImage.style.display = 'block' : uploadedImage.style.display = 'none';
-                videos.length == 0 ? uploadedVideo.style.display = 'block' : uploadedVideo.style.display = 'none';
+                //videos.length == 0 ? uploadedVideo.style.display = 'block' : uploadedVideo.style.display = 'none';
 
                 wrapperimages.innerHTML = '';
 
@@ -792,7 +881,7 @@
                       wrapperimages.appendChild(slideI);
                     });
 
-                  wrappervideos.innerHTML = '';
+                  /* wrappervideos.innerHTML = '';
 
                   videos.forEach(video => {
                     var slideVideo = document.createElement('div');
@@ -801,7 +890,7 @@
                       slideVideo.innerHTML = '<video controls="true" ><source src="' + video.videos + '" type="video/mp4"></video>';
                       slideVideo.innerHTML += '<button type="button" class="btn-close btn-danger delete-video"  aria-label="Close" onclick="removeSlide(this,'+ video.id +')"></button>';
                       wrappervideos.appendChild(slideVideo);
-                  });
+                  }); */
 
                 // console.log(response.data.category_id);
                 document.getElementById('category_id').value = response.data.category_id;

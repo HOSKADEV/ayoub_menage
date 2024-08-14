@@ -12,10 +12,17 @@ class Payment extends Model
     use HasFactory, SoftDeletes, SoftCascadeTrait;
 
     protected $fillable = [
+      'payable_id',
+      'payable_type',
       'amount',
       'paymnet_method',
       'is_paid',
       'paid_at',
       'receipt',
     ];
+
+
+    public function payable(){
+      return $this->morphTo();
+    }
 }

@@ -28,7 +28,19 @@ class Client extends Model
     return $this->hasMany(Order::class);
   }
 
+  public function invoices(){
+    return $this->hasManyThrough(Invoice::class, Order::class);
+  }
+
   public function payments(){
     return $this->morphMany(Payment::class, 'payable');
+  }
+
+  public function debt(){
+    $total_delivered_orders = $this->invoices()->where('orders.status','delivered')->sum('total_amount');
+    $paid_delivered_orders = $this->invoices()->where('orders.status','delivered')->sum('paid_amount');
+    $total_payments = $this->payments()->where('is_paid','yes')->sum('amount');
+
+    return $total_payments + $paid_delivered_orders - $total_delivered_orders;
   }
 }

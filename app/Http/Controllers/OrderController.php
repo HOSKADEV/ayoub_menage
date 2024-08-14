@@ -235,7 +235,9 @@ class OrderController extends Controller
       //'tax_type' => 'sometimes|in:1,2',
       'tax_amount' => 'sometimes|numeric',
       'payment_method' => 'sometimes|in:1,2',
-      'note' => 'sometimes'
+      'note' => 'sometimes',
+      'total_amount' => 'required_if:status,delivered',
+      'paid_amount' => 'required_if:status,delivered'
     ]);
 
     if ($validator->fails()) {
@@ -271,6 +273,10 @@ class OrderController extends Controller
           $order->status = 'delivered';
           $delivery->save();
 
+          $invoice->total_amount = $request->total_amount;
+          $invoice->paid_amount = $request->paid_amount;
+          $invoice->save();
+
           // $invoice->is_paid = 'yes';
           // $invoice->paid_at = $now;
           // $invoice->payment_method = $request->payment_method;
@@ -296,7 +302,8 @@ class OrderController extends Controller
       return response()->json([
         'status' => 1,
         'message' => 'success',
-        'data' => $order
+        'data' => $order,
+        'invoice' => $order->invoice
       ]);
 
     } catch (Exception $e) {

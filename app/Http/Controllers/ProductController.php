@@ -2,32 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use App\Models\Product;
+use App\Models\Setting;
+use App\Models\Category;
+use App\Models\Suppliers;
+use App\Models\Subcategory;
+use Illuminate\Http\Request;
+use App\Models\Products_media;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\ProductResource;
+use Illuminate\Support\Facades\Session ;
+use App\Http\Resources\ProductCollection;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\ProdectsMediaResource;
+use App\Http\Resources\ProductWithMediaResource;
 use App\Http\Resources\PaginatedProductCollection;
 use App\Http\Resources\PaginatedProductWithMediaCollection;
-use App\Http\Resources\ProdectsMediaResource;
-use App\Http\Resources\ProductCollection;
-use App\Http\Resources\ProductResource;
-use App\Http\Resources\ProductWithMediaResource;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Products_media;
-use App\Models\Subcategory;
-use App\Models\Suppliers;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session ;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
 
   public function index()
   {
+    $settings = Setting::first();
     $categories = Category::all();
     $suppliers  = Suppliers::where('status', 1)->get();
-    return view('content.products.list', compact('suppliers'))
+    return view('content.products.list', compact('suppliers','settings'))
     ->with('categories',$categories);
   }
 
@@ -46,16 +48,16 @@ class ProductController extends Controller
         'unit_name'   => 'required|string',
         'pack_name'   => 'sometimes|string',
         'supplier_id' => 'required',
-        'code_supplier'   => 'required',
+        'code_supplier'   => 'sometimes',
         'purchasing_price'  => 'required|numeric',
         'unit_price'  => 'required|numeric',
         'unit_type'   => 'required|in:1,2,3',
         'quantity'  => 'required|integer',
         'subcategory_id'    => 'required|exists:subcategories,id',
-        'pack_price'  => 'required_with:pack_units|nullable|numeric',
-        'pack_units'  => 'required_with:pack_price|nullable|integer',
+        //'pack_price'  => 'required_with:pack_units|nullable|numeric',
+        //'pack_units'  => 'required_with:pack_price|nullable|integer',
         'status'      => 'required|in:1,2',
-        'description'   => 'required|string',
+        //'description'   => 'sometimes|string',
       ]);
 
       if ($validator->fails())
@@ -394,6 +396,7 @@ class ProductController extends Controller
   public function get(Request $request)
   {  //paginated
     $validator = Validator::make($request->all(), [
+      'supplier_id' => 'sometimes|exists:suppliers,id',
       'category_id' => 'sometimes|missing_with:subcategory_id|exists:categories,id',
       'subcategory_id' => 'sometimes|exists:subcategories,id',
       'search' => 'sometimes|string',
@@ -416,6 +419,11 @@ class ProductController extends Controller
       }
 
       $products = Product::where('status','available')->orderBy('created_at','DESC');
+
+      if($request->has('supplier_id')){
+
+        $products = $products->where('supplier_id',$request->supplier_id);
+      }
 
       if($request->has('category_id')){
 

@@ -24,6 +24,7 @@
             <th>{{__('Phone')}}</th>
             {{-- <th>{{__('Email')}}</th> --}}
             <th>{{__('Status')}}</th>
+            <th>{{__('Debt')}}</th>
             <th>{{__('Created at')}}</th>
             <th>{{__('Actions')}}</th>
           </tr>
@@ -144,6 +145,18 @@
                               return '<span class="badge bg-success">{{__("Active")}}</span>';
                             }
                           }
+                },
+
+                {
+                    data: 'total_debt',
+                    name: 'total_debt',
+                    render: function(data) {
+                                if (data < 0) {
+                                  return  '<span class="text-danger">'+ new Intl.NumberFormat().format(data) +' Dzd</span>';
+                                } else {
+                                  return  '<span class="text-success">'+ new Intl.NumberFormat().format(data) +' Dzd</span>';
+                                }
+                            }
                 },
 
                 {

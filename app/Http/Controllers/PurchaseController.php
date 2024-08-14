@@ -63,6 +63,12 @@ class PurchaseController extends Controller
 
         PurchaseItem::insert($items);
 
+        if ($request->hasFile('receipt')) {
+          $path = $request->receipt->store('/uploads/receipts','upload');
+          $purchase->receipt = $path;
+          $purchase->save();
+        }
+
         $purchase->refresh();
         $purchase->total();
 
@@ -77,6 +83,95 @@ class PurchaseController extends Controller
       catch (Exception $e)
       {
         DB::rollBack();
+        return response()->json(
+          [
+            'status' => 0,
+            'message' => $e->getMessage(),
+          ]
+        );
+      }
+    }
+
+    public function update(Request $request)
+    {
+      //dd($request->all());
+      $validator = Validator::make($request->all(), [
+        'purchase_id' => 'required|exists:purchases,id',
+        'paid_amount' => 'sometimes|numeric',
+        'receipt' => 'sometimes|file',
+      ]);
+
+      if ($validator->fails()) {
+        return response()->json([
+          'status' => 0,
+          'message' => $validator->errors()->first()
+        ]);
+      }
+      try
+      {
+        DB::beginTransaction();
+
+        $purchase = Purchase::find($request->purchase_id);
+
+        $purchase->update($request->except('receipt','purchase_id'));
+
+        if ($request->hasFile('receipt')) {
+          $path = $request->receipt->store('/uploads/receipts','upload');
+          $purchase->receipt = $path;
+          $purchase->save();
+        }
+
+        DB::commit();
+
+        return response()->json([
+          'status' => 1,
+          'message' => 'success',
+          'data' => $purchase
+        ]);
+
+      }
+      catch (Exception $e)
+      {
+        DB::rollBack();
+        return response()->json(
+          [
+            'status' => 0,
+            'message' => $e->getMessage(),
+          ]
+        );
+      }
+    }
+
+    public function delete(Request $request)
+    {
+      //dd($request->all());
+      $validator = Validator::make($request->all(), [
+        'purchase_id' => 'required|exists:purchases,id',
+      ]);
+
+      if ($validator->fails()) {
+        return response()->json([
+          'status' => 0,
+          'message' => $validator->errors()->first()
+        ]);
+      }
+      try
+      {
+
+        $purchase = Purchase::find($request->purchase_id);
+
+        $purchase->delete();
+
+
+        return response()->json([
+          'status' => 1,
+          'message' => 'success',
+          'data' => $purchase
+        ]);
+
+      }
+      catch (Exception $e)
+      {
         return response()->json(
           [
             'status' => 0,

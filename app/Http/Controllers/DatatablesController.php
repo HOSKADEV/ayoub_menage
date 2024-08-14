@@ -14,6 +14,7 @@ use App\Models\Driver;
 use App\Models\Family;
 use App\Models\Notice;
 use App\Models\Wilaya;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Section;
 use App\Models\Category;
@@ -24,6 +25,7 @@ use App\Models\Suppliers;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Models\CategorySubcategory;
 
 
@@ -394,6 +396,10 @@ class DatatablesController extends Controller
 
     }
 
+    if (!empty($request->date)) {
+      $orders = $orders->where(DB::raw('DATE(created_at)'),$request->date);
+    }
+
     $orders = $orders->get();
 
     return datatables()
@@ -407,7 +413,7 @@ class DatatablesController extends Controller
 
         $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline bank" title="' . __('Bank') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-money me-2"></i></a>';
+        //$btn .= '<a class="dropdown-item-inline bank" title="' . __('Bank') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-money me-2"></i></a>';
 
         $btn .= '<a class="dropdown-item-inline invoiceSupplier" title="' . __('Invoice supplier') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-file me-2"></i></a>';
 
@@ -425,7 +431,9 @@ class DatatablesController extends Controller
 
         }
         if ($row->status == 'ongoing') {
-          $btn .= '<a class="dropdown-item-inline delivered" title="' . __('Delivered') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-package me-2"></i></a>';
+          /* $btn .= '<a class="dropdown-item-inline delivered" title="' . __('Delivered') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-package me-2"></i></a>'; */
+
+          $btn .= '<a class="dropdown-item-inline payment" title="' . __('Delivered') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-money me-2"></i></a>';
         }
 
         if (!in_array($row->status, ['pending', 'canceled'])) {
@@ -508,6 +516,8 @@ class DatatablesController extends Controller
           return number_format($row->invoice->tax_amount, 2, '.', ',') . ' Dzd';
         }
 
+        return number_format(0, 2, '.', ',') . ' Dzd';
+
       })
 
       ->addColumn('total_amount', function ($row) {
@@ -515,6 +525,28 @@ class DatatablesController extends Controller
         if (!is_null($row->invoice)) {
           return number_format($row->invoice->total_amount, 2, '.', ',') . ' Dzd';
         }
+
+        return number_format(0, 2, '.', ',') . ' Dzd';
+
+      })
+
+      ->addColumn('paid_amount', function ($row) {
+
+        if (!is_null($row->invoice)) {
+          return number_format($row->invoice->paid_amount, 2, '.', ',') . ' Dzd';
+        }
+
+        return number_format(0, 2, '.', ',') . ' Dzd';
+
+      })
+
+      ->addColumn('debt_amount', function ($row) {
+
+        if (!is_null($row->invoice)) {
+          return $row->invoice->paid_amount - $row->invoice->total_amount;
+        }
+
+        return 0;
 
       })
 
@@ -717,10 +749,13 @@ class DatatablesController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '';
 
-        if ($row->status == 1) {
-          $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-edit me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-edit me-2"></i></a>';
 
-          $btn .= '<a class="dropdown-item-inline" title="' . __('Purchases') . '" href="' . url('supplier/' . $row->id . '/purchases') . '"><i class="bx bx-purchase-tag-alt me-2"></i></a>';
+        $btn .= '<a class="dropdown-item-inline" title="' . __('Purchases') . '" href="' . url('supplier/' . $row->id . '/purchases') . '"><i class="bx bx-purchase-tag-alt me-2"></i></a>';
+
+        $btn .= '<a class="dropdown-item-inline" title="' . __('Payments') . '" href="' . url('supplier/' . $row->id . '/payments') . '"><i class="bx bx-money me-2"></i></a>';
+
+        if ($row->status == 1) {
 
           $btn .= '<a class="dropdown-item-inline delete" title="' . __('Block') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-x-circle me-2"></i></a>';
 
@@ -754,6 +789,12 @@ class DatatablesController extends Controller
       ->addColumn('created_at', function ($row) {
 
         return date('Y-m-d', strtotime($row->created_at));
+
+      })
+
+      ->addColumn('total_debt', function ($row) {
+
+        return $row->debt();
 
       })
 
@@ -934,6 +975,8 @@ class DatatablesController extends Controller
 
         $btn .= '<a class="dropdown-item-inline update" title="' . __('Edit') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-edit me-2"></i></a>';
 
+        $btn .= '<a class="dropdown-item-inline" title="' . __('Payments') . '" href="' . url('client/' . $row->id . '/payments') . '"><i class="bx bx-money me-2"></i></a>';
+
         $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-trash me-2"></i></a>';
 
         return $btn;
@@ -967,6 +1010,12 @@ class DatatablesController extends Controller
       ->addColumn('created_at', function ($row) {
 
         return date('Y-m-d', strtotime($row->created_at));
+
+      })
+
+      ->addColumn('total_debt', function ($row) {
+
+        return $row->debt();
 
       })
 
@@ -1017,6 +1066,12 @@ class DatatablesController extends Controller
 
       })
 
+      ->addColumn('debt_amount', function ($row) {
+
+        return $row->paid_amount - $row->total_amount;
+
+    })
+
 
       ->addColumn('items', function ($row) {
 
@@ -1026,11 +1081,163 @@ class DatatablesController extends Controller
 
       })
 
+      ->addColumn('file', function ($row) {
+
+        return empty ($row->receipt) ? null : url($row->receipt);
+
+      })
+
       ->addColumn('created_at', function ($row) {
 
         return date('Y-m-d', strtotime($row->created_at));
 
       })
+
+
+      ->make(true);
+  }
+
+  public function purchase_items(Request $request)
+  {
+
+    $purchase = Purchase::findOrFail($request->purchase_id);
+    $items = $purchase->items()->orderBy('created_at', 'DESC')->get();
+
+    return datatables()
+      ->of($items)
+      ->addIndexColumn()
+
+      ->addColumn('action', function ($row) {
+        $btn = '';
+
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
+
+        $btn .= '<a class="dropdown-item-inline edit" title="' . __('Edit') . '" table_id="' . $row->id . '" quantity="' . $row->quantity . '" price="' . $row->price . '"href="javascript:void(0);"><i class="bx bx-edit me-2"></i></a>';
+
+        return $btn;
+      })
+
+      ->addColumn('product', function ($row) {
+
+        return $row->name;
+
+      })
+
+
+      ->addColumn('price', function ($row) {
+
+        return number_format($row->price, 2, '.', ',');
+
+      })
+
+  /*     ->addColumn('type', function ($row) {
+
+        return $row->type;
+
+      }) */
+
+      ->addColumn('quantity', function ($row) {
+
+        return $row->quantity;
+
+      })
+
+      ->addColumn('discount', function ($row) {
+
+        return $row->discount . '%';
+
+      })
+
+      ->addColumn('amount', function ($row) {
+
+        return number_format($row->amount, 2, '.', ',');
+
+      })
+
+
+      ->make(true);
+  }
+
+  public function payments(Request $request)
+  {
+
+    $payments = Payment::where($request->only('payable_id','payable_type'))->orderBy('created_at', 'DESC');
+
+
+    /* if (!empty($request->type)) {
+      $payments->where('type', $request->type);
+    } */
+
+    if (!is_null($request->is_paid)) {
+      $payments = $payments->where('is_paid', $request->is_paid);
+    }
+
+    if (!is_null($request->start_date)) {
+      $payments = $payments->where(DB::raw('DATE(created_at)'), '>=', $request->start_date);
+    }
+
+    if (!is_null($request->end_date)) {
+      $payments = $payments->where(DB::raw('DATE(created_at)'), '<=', $request->end_date);
+    }
+
+    $payments = $payments->get();
+
+    return datatables()
+      ->of($payments)
+      ->addIndexColumn()
+
+      ->addColumn('action', function ($row) {
+        $btn = '';
+
+        $btn .= '<a class="dropdown-item-inline delete" title="' . __('Delete') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-2"></i></a>';
+
+        if ($row->is_paid == 'no') {
+          $btn .= '<a class="dropdown-item-inline pay" title="' . __('Pay') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-money me-2"></i></a>';
+        }
+
+        if (empty ($row->receipt)) {
+          $btn .= '<a class="dropdown-item-inline attach" title="' . __('Add receipt') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-file-plus me-2"></i></a>';
+        }
+
+        return $btn;
+      })
+
+      ->addColumn('amount', function ($row) {
+        return number_format($row->amount, 2, '.', ',');
+      })
+
+
+      ->addColumn('created_at', function ($row) {
+
+        return date('Y-m-d', strtotime($row->created_at));
+
+      })
+
+      ->addColumn('paid_at', function ($row) {
+
+        return is_null($row->paid_at) ? '' : date('Y-m-d H:i', strtotime($row->paid_at));
+
+      })
+
+      ->addColumn('is_paid', function ($row) {
+
+        return $row->is_paid;
+
+      })
+
+      /* ->addColumn('type', function ($row) {
+
+        return $row->type;
+
+      }) */
+
+      ->addColumn('file', function ($row) {
+
+        return empty ($row->receipt) ? null : url($row->receipt);
+
+      })
+
+
 
 
       ->make(true);

@@ -19,18 +19,29 @@
 
 <!-- Basic Bootstrap Table -->
 <div class="card" style="width: 100%">
-  <h5 class="card-header">{{__('Orders table')}}
+  {{-- <h5 class="card-header">{{__('Orders table')}}</h5> --}}
 
-    <select class="filter-select" id="status" name="status">
-      <option value="default" > {{__('Default')}}</option>
-      <option value="pending" > {{__('Pending')}}</option>
-      <option value="accepted" > {{__('Accepted')}}</option>
-      <option value="canceled" > {{__('Canceled')}}</option>
-      <option value="ongoing" > {{__('Ongoing')}}</option>
-      <option value="delivered" > {{__('Delivered')}}</option>
-      <option value="" > {{__('All')}}</option>
-    </select>
-  </h5>
+  <div class="row  justify-content-between">
+    <div class="form-group col-md-3 p-3">
+    <label for="type" class="form-label">{{ __('Status filter') }}</label>
+      <select class="form-select" id="status" name="status">
+        <option value="default" > {{__('Default')}}</option>
+        <option value="pending" > {{__('Pending')}}</option>
+        <option value="accepted" > {{__('Accepted')}}</option>
+        <option value="canceled" > {{__('Canceled')}}</option>
+        <option value="ongoing" > {{__('Ongoing')}}</option>
+        <option value="delivered" > {{__('Delivered')}}</option>
+        <option value="" > {{__('All')}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-3 p-3">
+      <label for="type" class="form-label">{{ __('Date filter') }}</label>
+      <input class="form-select" id="date" type="text" size="14" placeholder="{{ __('Not selected') }}"
+                onfocus="(this.type='date')" onblur="(this.type='text')">
+    </div>
+  </div>
+
 
   <div class="table-responsive text-nowrap">
     <table class="table" id="laravel_datatable" style="width: 100%">
@@ -43,9 +54,11 @@
           <th>{{__('Created at')}}</th>
           <th>{{__('Status')}}</th>
           {{-- <th>{{__('Driver')}}</th> --}}
-          <th>{{__('Purchase amount')}}</th>
-          <th>{{__('Tax amount')}}</th>
+          {{-- <th>{{__('Purchase amount')}}</th>
+          <th>{{__('Tax amount')}}</th> --}}
           <th>{{__('Total amount')}}</th>
+          <th>{{__('Paid amount')}}</th>
+          <th>{{__('Debt amount')}}</th>
           <th>{{__('Actions')}}</th>
         </tr>
       </thead>
@@ -64,7 +77,24 @@
       <div class="modal-body">
         <form class="form-horizontal" onsubmit="event.preventDefault()" action="#"
           enctype="multipart/form-data" id="payment_form">
-            <div class="mb-3">
+
+          <input type="text" id="payment_order_id" name="order_id" hidden />
+
+          <div class="mb-3">
+            <label class="form-label" for="total_amount">{{__('Total amount')}}</label>
+            <input type="number" class="form-control" id="total_amount" name="total_amount">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="paid_amount">{{__('Paid amount')}}</label>
+            <input type="number" class="form-control" id="paid_amount" name="paid_amount">
+          </div>
+
+          <div class="mb-3" style="text-align: center">
+            <button type="submit" id="submit_payment" name="submit_payment" class="btn btn-primary">{{__('Send')}}</button>
+          </div>
+
+            {{-- <div class="mb-3">
               <label class="form-label" for="payment_method">{{__('Payment method')}}</label>
               <input type="text" class="form-control" disabled id="payment_method" >
             </div>
@@ -85,7 +115,7 @@
               <a href="#" target="_blank" id="href-image" data-lightbox="image-1" data-title="My Image" >
                 <img src="{{ asset('assets/img/icons/file-not-found.jpg') }}" alt="Image" style="width: 100%" id="uploaded-image" id="uploaded-image" />
               </a>
-            </div>
+            </div> --}}
 
         </form>
       </div>
@@ -181,7 +211,7 @@
     });
     // function views orders in table
     load_data();
-    function load_data(status = 'default') {
+    function load_data(status = 'default', date = null) {
         //$.fn.dataTable.moment( 'YYYY-M-D' );
         var table = $('#laravel_datatable').DataTable({
 
@@ -194,6 +224,7 @@
                 url: "{{ url('order/list') }}",
                 data:{
                   status:status,
+                  date:date
                 },
                 type: 'POST',
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -251,7 +282,7 @@
 
                 /* 127 */
 
-                {
+                /* {
                     data: 'purchase_amount',
                     name: 'purchase_amount'
                 },
@@ -259,12 +290,28 @@
                 {
                     data: 'tax_amount',
                     name: 'tax_amount'
-                },
+                }, */
 
                 {
                     data: 'total_amount',
                     name: 'total_amount'
                 },
+                {
+                    data: 'paid_amount',
+                    name: 'paid_amount'
+                },
+
+                {
+                            data: 'debt_amount',
+                            name: 'debt_amount',
+                            render: function(data) {
+                                if (data < 0) {
+                                  return  '<span class="text-danger">'+ new Intl.NumberFormat().format(data) +' Dzd</span>';
+                                } else {
+                                  return  '<span class="text-success">'+ new Intl.NumberFormat().format(data) +' Dzd</span>';
+                                }
+                            }
+                        },
 
                 {
                     data: 'action',
@@ -283,10 +330,20 @@
     $('#status').on('change', function() {
 
       var status = document.getElementById('status').value;
-
+      var date = document.getElementById('date').value;
       var table = $('#laravel_datatable').DataTable();
       table.destroy();
-      load_data(status);
+      load_data(status,date);
+
+    });
+
+    $('#date').on('blur', function() {
+
+      var status = document.getElementById('status').value;
+      var date = document.getElementById('date').value;
+      var table = $('#laravel_datatable').DataTable();
+      table.destroy();
+      load_data(status,date);
 
     });
   });
@@ -529,6 +586,31 @@
               document.getElementById('uploaded-image').src = image;
               //! Set the href attribute of the link to the image path
               $('#href-image').attr('href', image);
+              $("#payment_modal").modal('show');
+            }
+          }
+      });
+
+
+
+  });
+
+  $(document.body).on('click', '.payment', function()
+  {
+    var order_id = $(this).attr('table_id');
+    /* var id_order = order_id;
+    console.log('this is id order',id_order); */
+    document.getElementById('payment_order_id').value = order_id;
+    $.ajax({
+        url: "{{ url('order/update') }}",
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type:'POST',
+        data:{order_id : order_id},
+        dataType : 'JSON',
+        success:function(response){
+            if(response.status==1){
+              document.getElementById('total_amount').value = response.invoice.total_amount;
+              document.getElementById('paid_amount').value = response.invoice.total_amount;
               $("#payment_modal").modal('show');
             }
           }

@@ -24,6 +24,7 @@
           <th>{{__('Phone')}}</th>
           <th>{{__('Wilaya')}}</th>
           <th>{{__('District')}}</th>
+          <th>{{__('Debt')}}</th>
           <th>{{__('Created at')}}</th>
           <th>{{__('Actions')}}</th>
         </tr>
@@ -166,7 +167,17 @@
                     name: 'district'
                 },
 
-
+                {
+                    data: 'total_debt',
+                    name: 'total_debt',
+                    render: function(data) {
+                                if (data < 0) {
+                                  return  '<span class="text-danger">'+ new Intl.NumberFormat().format(data) +' Dzd</span>';
+                                } else {
+                                  return  '<span class="text-success">'+ new Intl.NumberFormat().format(data) +' Dzd</span>';
+                                }
+                            }
+                },
                 {
                     data: 'created_at',
                     name: 'created_at'

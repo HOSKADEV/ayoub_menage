@@ -53,6 +53,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/notice/list', 'App\Http\Controllers\DatatablesController@notices')->name('notice-list');
   Route::get('/ad/list', 'App\Http\Controllers\DatatablesController@ads')->name('ad-list');
   Route::post('/client/list', 'App\Http\Controllers\DatatablesController@clients')->name('client-list');
+  Route::post('/purchase/item/list', 'App\Http\Controllers\DatatablesController@purchase_items')->name('purchase-item-list');
+  Route::post('/payment/list', 'App\Http\Controllers\DatatablesController@payments')->name('payment-list');
 
   Route::get('/order/browse', 'App\Http\Controllers\OrderController@index')->name('order-browse');
   Route::get('/offer/browse', 'App\Http\Controllers\OfferController@index')->name('offer-browse');
@@ -199,6 +201,21 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/supplier/{id}/purchases','App\Http\Controllers\PurchaseController@index');
   Route::post('/purchase/list','App\Http\Controllers\DatatablesController@purchases');
 
+  Route::get('/supplier/{id}/payments','App\Http\Controllers\PaymentController@index')->name('supplier_payments');
+  Route::get('/client/{id}/payments','App\Http\Controllers\PaymentController@index')->name('client_payments');
+
+  Route::get('/purchase/{id}/items', 'App\Http\Controllers\PurchaseItemController@index')->name('purchase-items');
+  Route::post('/purchase/item/add','App\Http\Controllers\PurchaseItemController@add');
+  Route::post('/purchase/item/delete','App\Http\Controllers\PurchaseItemController@delete');
+  Route::post('/purchase/item/restore','App\Http\Controllers\PurchaseItemController@restore');
+  Route::post('/purchase/item/edit','App\Http\Controllers\PurchaseItemController@edit');
+
+  Route::post('/payment/create','App\Http\Controllers\PaymentController@create');
+  Route::post('/payment/update','App\Http\Controllers\PaymentController@update');
+  Route::post('/payment/delete','App\Http\Controllers\PaymentController@delete');
+  Route::post('/payment/restore','App\Http\Controllers\PaymentController@restore');
+  Route::post('/payment/multi_pay','App\Http\Controllers\PaymentController@multi_pay');
+
   Route::post('/shipping/switch','App\Http\Controllers\SetController@shipping');
 
   Route::post('invoices/supplier', [InvoiceController::class, 'updateSupplier']);
@@ -209,6 +226,12 @@ Route::group(['middleware' => ['auth']], function () {
   $locale = session()->get('locale') == 'ar' ? 'en' : 'ar';
   Session::put('locale', $locale);
   App::setLocale(Session::get('locale'));
+  return redirect()->back();
+});
+
+Route::get('/lang/{lang}', function($lang){
+  Session::put('locale', $lang);
+  App::setLocale($lang);
   return redirect()->back();
 });
 
