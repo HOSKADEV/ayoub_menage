@@ -43,11 +43,11 @@ class Order extends Model
     protected $softCascade = ['invoice','delivery'];
 
     public function user(){
-      return $this->belongsTo(User::class);
+      return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function client(){
-      return $this->belongsTo(Client::class);
+      return $this->belongsTo(Client::class)->withTrashed();
     }
 
     public function cart(){
@@ -56,12 +56,12 @@ class Order extends Model
 
     public function wilayas()
     {
-      return $this->belongsTo(Wilaya::class);
+      return $this->belongsTo(Wilaya::class)->withTrashed();
     }
 
     public function district()
     {
-      return $this->belongsTo(District::class,'district_id');
+      return $this->belongsTo(District::class,'district_id')->withTrashed();
     }
 
     public function items(){

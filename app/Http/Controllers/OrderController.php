@@ -120,12 +120,14 @@ class OrderController extends Controller
   {
     $validator = Validator::make($request->all(), [
 
-      'phone' => 'required|numeric|digits:8',
+      'phone' => 'required|numeric|digits:10',
       'longitude' => 'required|string',
       'latitude' => 'required|string',
       //'products' => 'required|array',
       //'products.*.id' => 'required|distinct|exists:products,id',
       //'products.*.quantity' => 'required|numeric'
+      'wilayas_id' => 'sometimes|exists:wilayas,id',
+      'district_id' => 'sometimes|exists:districts,id'
     ]);
 
     if ($validator->fails()) {
@@ -136,6 +138,7 @@ class OrderController extends Controller
     }
     try
     {
+      //\Illuminate\Support\Facades\DB::beginTransaction();
       $user = auth()->user();
 
       $items = $user->cart()->items;
@@ -166,12 +169,14 @@ class OrderController extends Controller
         'cart_id'     => $request->cart_id,
         'wilayas_id'  => $request->wilayas_id,
         'district_id' => $request->district_id,
+        'client_id'  => $request->client_id,
         'phone'       => $request->phone,
         'longitude'   => $request->longitude,
         'latitude'    => $request->latitude,
         'ccp_acount'  => $request->ccp_acount,
         'delivery_price'  => $request->delivery_price,
         'payement_method' => $request->payement_method,
+        'status' => 'accepted'
 
       ]);
 
@@ -197,13 +202,15 @@ class OrderController extends Controller
 
       $invoice->total();
 
+      $invoice->pdf();
+
       $cart = $user->cart();
 
       $cart->delete();
 
-      $admin_tokens = User::where('role',0)->whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+      /* $admin_tokens = User::where('role',0)->whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
 
-      $this->send_fcm_multi(__('New order'),__('There is a new order pending'),$admin_tokens);
+      $this->send_fcm_multi(__('New order'),__('There is a new order pending'),$admin_tokens); */
 
       return response()->json([
         'status' => 1,

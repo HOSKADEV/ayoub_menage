@@ -63,8 +63,9 @@ class Invoice extends Model
       $buyer = new Party([
           'name' => $user->fullname(),
           'phone' => $order->phone(),
-          'wilayas' => $order->wilayas->name,
-          'district' => $order->district->name,
+          /* 'wilayas' => $order->wilayas->name,
+          'district' => $order->district->name, */
+          'address' => $order->wilayas->name . ' / ' . $order->district->name
       ]);
 
       $items = [];

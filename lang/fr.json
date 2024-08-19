@@ -356,5 +356,14 @@
 
     "Defaults" : "Paramètres par défaut",
     "Default category" : "Catégorie par défaut",
-    "Default subcategory" : "Sous-catégorie par défaut"
+    "Default subcategory" : "Sous-catégorie par défaut",
+
+
+    "seller": "Vendeur",
+    "buyer": "Acheteur",
+    "address": "Adresse",
+    "code": "Code",
+    "vat": "TVA",
+    "phone": "Téléphone"
+
 }

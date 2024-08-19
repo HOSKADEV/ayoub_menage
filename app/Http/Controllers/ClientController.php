@@ -200,7 +200,7 @@ class ClientController extends Controller
   public function get(Request $request){  //paginated
     $validator = Validator::make($request->all(), [
       'search' => 'sometimes|string',
-      'wilaya_id' => 'sometimes, exists:wilayas,id',
+      'wilaya_id' => 'sometimes|exists:wilayas,id',
       'district_id' => 'sometimes|prohibits:wilaya_id|exists:districts,id'
     ]);
 
@@ -216,7 +216,15 @@ class ClientController extends Controller
 
     $clients = Client::orderBy('created_at','DESC');
 
+    if($request->has('district_id')){
 
+      $clients = $clients->where('district_id', $request->district_id);
+    }
+
+    if($request->has('wilaya_id')){
+      $districts = Wilaya::find($request->wilaya_id)->district()->pluck('id')->toArray();
+      $clients = $clients->whereIn('district_id', $districts);
+    }
 
     if($request->has('search')){
 
