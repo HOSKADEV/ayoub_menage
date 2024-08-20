@@ -217,6 +217,7 @@ class ProductController extends Controller
         $product->supplier_id = $request->input('supplier_id');
         $product->unit_name   = $request->input('unit_name');
         $product->pack_name   = $request->input('pack_name');
+        $product->pack_units   = $request->input('pack_units');
         $product->purchasing_price = $request->input('purchasing_price');
         $product->unit_price  = $request->input('unit_price');
         $product->pack_price  = $request->input('pack_price');

@@ -52,7 +52,7 @@ class Invoice extends Model
 
     public function pdf(){
       $order = $this->order;
-      $user = $order->user;
+      $client = $order->client;
       $cart = $order->cart;
 
 
@@ -61,7 +61,7 @@ class Invoice extends Model
       ]);
 
       $buyer = new Party([
-          'name' => $user->fullname(),
+          'name' => $client->name,
           'phone' => $order->phone(),
           /* 'wilayas' => $order->wilayas->name,
           'district' => $order->district->name, */
