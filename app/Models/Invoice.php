@@ -96,7 +96,7 @@ class Invoice extends Model
         ->buyer($buyer)
         ->date($order->created_at)
         ->dateFormat('Y-m-d')
-        ->totalTaxes($this->tax_amount)
+        //->totalTaxes($this->tax_amount)
         //->payUntilDays(14)
         ->currencySymbol(__(''))
         ->currencyCode(__(''))

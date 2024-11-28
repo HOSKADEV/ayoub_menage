@@ -138,7 +138,7 @@ class OrderController extends Controller
     }
     try
     {
-      //\Illuminate\Support\Facades\DB::beginTransaction();
+      \Illuminate\Support\Facades\DB::beginTransaction();
       $user = auth()->user();
 
       $items = $user->cart()->items;
@@ -174,7 +174,8 @@ class OrderController extends Controller
         'longitude'   => $request->longitude,
         'latitude'    => $request->latitude,
         'ccp_acount'  => $request->ccp_acount,
-        'delivery_price'  => $request->delivery_price,
+        //'delivery_price'  => $request->delivery_price,
+        'delivery_price'  => 0,
         'payement_method' => $request->payement_method,
         'status' => 'accepted'
 
@@ -192,11 +193,12 @@ class OrderController extends Controller
         $order->save();
       }
 
-      $price = $request->delivery_price;
+      //$price = $request->delivery_price;
 
       $invoice = Invoice::create([
         'order_id' => $order->id,
-        'tax_amount' => $price,
+        //'tax_amount' => $price,
+        'tax_amount' => 0,
         'payment_method' => $request->payement_method,
       ]);
 
@@ -259,7 +261,7 @@ class OrderController extends Controller
 
       if($request->has('status')){
 
-        if($request->status == 'ongoing'){
+        /* if($request->status == 'ongoing'){
 
           Delivery::create([
             'order_id' => $request->order_id,
@@ -269,16 +271,16 @@ class OrderController extends Controller
           $invoice = $order->invoice;
 
           $invoice->pdf();
-        }
+        } */
 
         if($request->status == 'delivered'){
 
           $now = Carbon::now()->toDateString();
           $invoice = $order->invoice;
-          $delivery = $order->delivery;
+          /* $delivery = $order->delivery;
           $delivery->delivered_at = $now;
           $order->status = 'delivered';
-          $delivery->save();
+          $delivery->save(); */
 
           $invoice->total_amount = $request->total_amount;
           $invoice->paid_amount = $request->paid_amount;

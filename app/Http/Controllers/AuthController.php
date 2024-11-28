@@ -98,14 +98,14 @@ class AuthController extends Controller
 
         $user = User::where('email',$firebase_user->email)->first();
 
-        /* if(is_null($user)){
+        if(is_null($user)){
           $user = User::create([
             'name' => $firebase_user->displayName,
             'email' => $firebase_user->email,
             'phone' => $firebase_user->phoneNumber,
             'image' => $firebase_user->photoUrl,
           ]);
-        } */
+        }
 
         /* User::withTrashed()->updateOrInsert(
           ['email' => $firebase_user->email],

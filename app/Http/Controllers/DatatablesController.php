@@ -415,7 +415,7 @@ class DatatablesController extends Controller
 
         //$btn .= '<a class="dropdown-item-inline bank" title="' . __('Bank') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-money bx-sm me-2"></i></a>';
 
-        $btn .= '<a class="dropdown-item-inline invoiceSupplier" title="' . __('Invoice supplier') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-file bx-sm me-2"></i></a>';
+        //$btn .= '<a class="dropdown-item-inline invoiceSupplier" title="' . __('Invoice supplier') . '" table_id="' . $row->id . '" href="javascript:void(0);"><i class="bx bxs-file bx-sm me-2"></i></a>';
 
         if ($row->status == 'pending') {
 
@@ -438,7 +438,7 @@ class DatatablesController extends Controller
 
         if (!in_array($row->status, ['pending', 'canceled'])) {
           if (!is_null($row->invoice)) {
-            $btn .= '<a class="dropdown-item-inline " target="_blank" title="' . __('whatsapp') . '"
+           /*  $btn .= '<a class="dropdown-item-inline " target="_blank" title="' . __('whatsapp') . '"
               href="https://api.whatsapp.com/send?text=' .
               __('order N') . ': ' . $row->id . '%0A' .
               __('Total amount') . ': ' . number_format($row->invoice->total_amount, 2, '.', ',') . ' Dzd %0A' .
@@ -447,7 +447,7 @@ class DatatablesController extends Controller
               // __('Districts')   .': '.$row->district.
               __('Phone') . ': ' . $row->phone() . '%0A' .
               __('Invoice') . ': ' . asset($row->invoice->file) . '%0A' .
-              __('Location') . ': ' . $row->address() . '"><i class="bx bxl-whatsapp"></i></a>';
+              __('Location') . ': ' . $row->address() . '"><i class="bx bxl-whatsapp"></i></a>'; */
 
             $btn .= '<a class="dropdown-item-inline invoice" title="' . __('Invoice') . '" table_id="' . $row->invoice->id . '" href="javascript:void(0);"><i class="bx bx-file bx-sm me-2"></i></a>';
 
